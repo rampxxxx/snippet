@@ -33,5 +33,6 @@
 
 
 
-cscope*
+cscope.files
+cscope.out
 build/
