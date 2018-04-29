@@ -36,3 +36,4 @@
 cscope.files
 cscope.out
 build/
+*.swp
