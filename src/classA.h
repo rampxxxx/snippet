@@ -1,3 +1,4 @@
+// un 'fix' para traerlo con rebase en lugar de cherry-pick
 #ifndef __CLASSA__
 #define __CLASSA__
 class A{
