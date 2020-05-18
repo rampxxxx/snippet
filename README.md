@@ -1,2 +1,2 @@
 # snippet
-c++,vi,cmake environment
+c++,vi,cmake environment, ...
