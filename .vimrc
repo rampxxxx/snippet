@@ -1,5 +1,5 @@
 " ini : format
-set tabstop=2 shiftwidth=4 expandtab " tab as 4 spaces"
+" -IN FRR KERNEL COD STYLE- set tabstop=2 shiftwidth=4 expandtab " tab as 4 spaces"
 set colorcolumn=80
 " end : format
 
