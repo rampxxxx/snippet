@@ -151,9 +151,62 @@ syntax on
 :onoremap p i() "operator pending, for 'pa'rameters"
 
 
+function MiBusca()
+	echom "Running ramp miBusca on:" expand("<cword>")
+	let miTag = trim(execute("TagbarCurrentTag"))
+	let miTagSinParentesis = substitute(miTag, '()', '', '')
+	let miWord = expand("<cword>")      	" get the word under cursor
+	let miFile = expand("<afile>")      	" get the word under cursor
+	let miFileEscaped = substitute(miFile, '/','\\/','g')
+	let miFuncScope = "| sed -n \'/" . miFileEscaped . "/,//p\' | sed -n \'/FunctionDecl.*" . miTagSinParentesis . "/,/FunctionDecl/p\'"
+	let miLimpiaColorChars = "| sed 's/\x1b\[[0-9;]*m//g'"
+	if miWord =~ '\a'                   	" if the word contains a letter
+		"if strlen(expand("<cword>")) > 0
+		echom "miWord " . miWord
+		let decl_command_scoped = "clang-check " . miFile  . " -ast-dump  2>/dev/null  " . miFuncScope . "| grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1|awk -F'0;32m' '{ print  }'" . miLimpiaColorChars
+		echom decl_command_scoped
+		let laDefinicionClang = trim(system(decl_command_scoped))
+		if strlen(laDefinicionClang) > 0
+			echo laDefinicionClang
+		else
+			let decl_command_global = "clang-check " . miFile  . " -ast-dump  2>/dev/null  | grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1|awk -F'0;32m' '{ print  }'" . miLimpiaColorChars
+			let laDefinicionClang_global = trim(system(decl_command_global))
+			echo laDefinicionClang_global
+		endif
+		"echom miTagSinParentesis
+		let cscopeCmd = "cscope -L -1 " . miWord
+		"let cscopeCmd = "cscope -L -0 " . miWord . " |grep \"" . miTagSinParentesis  .  "\" |head -1"
+		"echom "Mi cscope cmd : " . cscopeCmd
+		let cscopeRes = system(cscopeCmd)
+		"let cscopeRes = execute("cs f g " . miWord)
+		"echom cscopeRes
+		if cscopeRes =~ '('
+			"echom " El res: " . cscopeRes . " ¡es una funcion!"
+
+			let miFileDefFunctionCmd = " echo \"" . cscopeRes . "\" |awk \'{print $1}\'"
+			"echom "miFileDefFunctionCmd:" . miFileDefFunctionCmd
+			let miFileDefFunction = system(miFileDefFunctionCmd)
+			let miFileDefFunction=substitute(miFileDefFunction,'\n','','a')
+			let miFileDefFunction=substitute(miFileDefFunction,'\n','','a')
+			"echom "miFileDefFunction:".miFileDefFunction
+			let miCmdTrozoFile="cat " . miFileDefFunction . " |sed -n \'/" . miWord . "\(.*\)[^;]$/,/}/p\'"
+			echom miCmdTrozoFile
+			let cscopeRes=system(miCmdTrozoFile)
+			let cscopeRes=substitute(cscopeRes, '\n','','')
+		endif
 
 
-au CursorHold *c,*h echo "Ping! " . expand("<cword>") . " " . expand("<afile>")
+		if strlen(cscopeRes) > 0
+
+			let cscopeResMulLine = split(cscopeRes,"\n")
+			call popup_atcursor(cscopeResMulLine, #{ line: 5, col: 10, highlight: 'WildMenu', border: [] } )
+
+		endif
+	endif
+endfunction
+
+
+au! CursorHold *.[ch] nested call MiBusca()
 
 "" START : Help conf python_mode plugin
 "
