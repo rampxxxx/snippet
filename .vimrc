@@ -226,6 +226,8 @@ au! CursorHold *.[ch] nested call MiBusca()
 
 
 
+" Speel check
+setlocal spell spelllang=en_us
 
 
 
