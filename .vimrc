@@ -121,6 +121,10 @@ let g:clang_check_syntax_auto=0 " avoid automatic syntax check on write.
 " let g:clang_use_library=1
 " let g:clang_library_path='/path/to/lib'
 " END  : vim clang
+"
+" INIT supertab
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"  " Use clang complete which use omni instead <C-P>
+" END supertab
 
 "INIT python mode
 let g:pymode_python = 'python3'
