@@ -103,14 +103,21 @@ let g:syntastic_c_remove_include_errors = 1 " try not so slow"
 " not needeed    let g:syntastic_cpp_compiler = "g++"
 " End  : syntastic
 
-" INIT : clang complete
-" let g:clang_library_path='/usr/lib64' "No se puede , libclang tiene hard
+" INIT : clang complete (https://github.com/justmao945/vim-clang)
 " path
-let g:clang_check_syntax_auto=0 " avoid automatic syntax check on write.
-let g:clang_c_completeopt = 'longest,menuone' " as C no prev wind by def.
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+" C, kernel,etc
 let g:clang_c_options = '-std=gnu11'
+let g:clang_c_completeopt = 'longest,menuone,preview'
+" split SCREEN horizontally, with new split on the top
+"let g:clang_diagsopt = '' " Disable clang diagnostics, no to clash with syntastic.
+let g:clang_diagsopt = 'botright'
+let g:clang_pwheight = 4
+let g:clang_verbose_pmenu = 1 " popup very verbose
+let g:clang_compilation_database='./compile_commands.json'
+let g:clang_check_syntax_auto=0 " avoid automatic syntax check on write.
 " END : clang complete
-" INIT : vim clang
+" INIT : vim clang (https://github.com/xavierd/clang_complete)
 " let g:clang_use_library=1
 " let g:clang_library_path='/path/to/lib'
 " END  : vim clang
