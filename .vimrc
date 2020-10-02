@@ -15,10 +15,18 @@ let g:netrw_winsize = 10
 " end : netrw
 
 
-set number
-"set relativenumber "line number relative to possition"
-set hlsearch
+set laststatus=2 "allways show status line
+set nocompatible
 set incsearch
+set hlsearch
+set nu
+set cindent
+set autoindent
+set smartindent
+set showmatch
+set wildmenu
+set showmode
+
 "" default colorscheme blue match better with all ring&bells.
 colorscheme morning  " white bg 
 "colorscheme shine " white bg
@@ -159,21 +167,21 @@ function MiBusca()
 	echom "Running ramp miBusca on:" expand("<cword>")
 	let miTag = trim(execute("TagbarCurrentTag"))
 	let miTagSinParentesis = substitute(miTag, '()', '', '')
-	let miWord = expand("<cword>")      	" get the word under cursor
-	let miFile = expand("<afile>")      	" get the word under cursor
+	let miWord = expand("<cword>")          " get the word under cursor
+	let miFile = expand("<afile>")          " get the word under cursor
 	let miFileEscaped = substitute(miFile, '/','\\/','g')
 	let miFuncScope = "| sed -n \'/" . miFileEscaped . "/,//p\' | sed -n \'/FunctionDecl.*" . miTagSinParentesis . "/,/FunctionDecl/p\'"
 	let miLimpiaColorChars = "| sed 's/\x1b\[[0-9;]*m//g'"
-	if miWord =~ '\a'                   	" if the word contains a letter
+	if miWord =~ '\a'                       " if the word contains a letter
 		"if strlen(expand("<cword>")) > 0
 		echom "miWord " . miWord
-		let decl_command_scoped = "clang-check " . miFile  . " -ast-dump  2>/dev/null  " . miFuncScope . "| grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1|awk -F'0;32m' '{ print  }'" . miLimpiaColorChars
+		let decl_command_scoped = "clang-check " . miFile  . " -ast-dump  2>/dev/null  " . miFuncScope . "| grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1" . miLimpiaColorChars
 		echom decl_command_scoped
 		let laDefinicionClang = trim(system(decl_command_scoped))
 		if strlen(laDefinicionClang) > 0
 			echo laDefinicionClang
 		else
-			let decl_command_global = "clang-check " . miFile  . " -ast-dump  2>/dev/null  | grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1|awk -F'0;32m' '{ print  }'" . miLimpiaColorChars
+			let decl_command_global = "clang-check " . miFile  . " -ast-dump  2>/dev/null  | grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1" . miLimpiaColorChars
 			let laDefinicionClang_global = trim(system(decl_command_global))
 			echo laDefinicionClang_global
 		endif
@@ -193,22 +201,21 @@ function MiBusca()
 			let miFileDefFunction=substitute(miFileDefFunction,'\n','','a')
 			let miFileDefFunction=substitute(miFileDefFunction,'\n','','a')
 			"echom "miFileDefFunction:".miFileDefFunction
-			let miCmdTrozoFile="cat " . miFileDefFunction . " |sed -n \'/" . miWord . "\(.*\)[^;]$/,/}/p\'"
-			echom miCmdTrozoFile
+			let miCmdTrozoFile="cat " . miFileDefFunction . " |sed -n \'/" . miWord . "(.*[^;]$/,/}/p\'"
+			"echom miCmdTrozoFile
 			let cscopeRes=system(miCmdTrozoFile)
 			let cscopeRes=substitute(cscopeRes, '\n','','')
 		endif
 
 
-		if strlen(cscopeRes) > 0
+	if strlen(cscopeRes) > 0
 
-			let cscopeResMulLine = split(cscopeRes,"\n")
-			call popup_atcursor(cscopeResMulLine, #{ line: 5, col: 10, highlight: 'WildMenu', border: [] } )
+		let cscopeResMulLine = split(cscopeRes,"\n")
+		call popup_atcursor(cscopeResMulLine, #{ line: 5, col: 10, highlight: 'WildMenu', border: [] } )
 
-		endif
+	endif
 	endif
 endfunction
-
 
 au! CursorHold *.[ch] nested call MiBusca()
 
