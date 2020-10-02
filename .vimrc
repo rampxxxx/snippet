@@ -174,24 +174,26 @@ function MiBusca()
 	let miLimpiaColorChars = "| sed 's/\x1b\[[0-9;]*m//g'"
 	if miWord =~ '\a'                       " if the word contains a letter
 		"if strlen(expand("<cword>")) > 0
-		echom "miWord " . miWord
+		"echom "miWord " . miWord
 		let decl_command_scoped = "clang-check " . miFile  . " -ast-dump  2>/dev/null  " . miFuncScope . "| grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1" . miLimpiaColorChars
-		echom decl_command_scoped
-		let laDefinicionClang = trim(system(decl_command_scoped))
-		if strlen(laDefinicionClang) > 0
-			echo laDefinicionClang
+		"echom decl_command_scoped
+		let show_string_clang = trim(system(decl_command_scoped))
+		if strlen(show_string_clang) > 0
+" Local definition
+			"echo show_string_clang
 		else
+" Global definition
 			let decl_command_global = "clang-check " . miFile  . " -ast-dump  2>/dev/null  | grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1" . miLimpiaColorChars
-			let laDefinicionClang_global = trim(system(decl_command_global))
-			echo laDefinicionClang_global
+			let show_string_clang = trim(system(decl_command_global))
+			"echo show_string_clang
 		endif
-		"echom miTagSinParentesis
+		"echom "miTagSinParentesis" . miTagSinParentesis
 		let cscopeCmd = "cscope -L -1 " . miWord
 		"let cscopeCmd = "cscope -L -0 " . miWord . " |grep \"" . miTagSinParentesis  .  "\" |head -1"
 		"echom "Mi cscope cmd : " . cscopeCmd
 		let cscopeRes = system(cscopeCmd)
-		"let cscopeRes = execute("cs f g " . miWord)
-		"echom cscopeRes
+		"echom "cscopeRes" . cscopeRes
+		let show_string_cscope=''
 		if cscopeRes =~ '('
 			"echom " El res: " . cscopeRes . " ¡es una funcion!"
 
@@ -204,16 +206,32 @@ function MiBusca()
 			let miCmdTrozoFile="cat " . miFileDefFunction . " |sed -n \'/" . miWord . "(.*[^;]$/,/}/p\'"
 			"echom miCmdTrozoFile
 			let cscopeRes=system(miCmdTrozoFile)
-			let cscopeRes=substitute(cscopeRes, '\n','','')
+			let show_string_cscope=substitute(cscopeRes, '\n','','')
+		else
+			let show_string_cscope=cscopeRes
+		endif
+
+		let l:command = "silent! pedit! +setlocal\\ " .
+					\ "buftype=nofile\\ nobuflisted\\ " .
+					\ "noswapfile\\ nonumber\\ " .
+					\ "filetype=c mipreview"
+		exe l:command
+
+		if strlen(show_string_clang) > 0
+			call setbufline("mipreview",1,show_string_clang)
+		endif
+		if strlen(show_string_cscope) > 0
+
+			let cscopeResMulLine = split(show_string_cscope,"\n")
+			"call popup_atcursor(cscopeResMulLine, #{ line: 5, col: 10, highlight: 'WildMenu', border: [] } )
+			"silent! pedit filetype=c mipreview
+			"call setbufline("mipreview",1,cscopeResMulLine)
+
+
+			call setbufline("mipreview",2,cscopeResMulLine)
 		endif
 
 
-	if strlen(cscopeRes) > 0
-
-		let cscopeResMulLine = split(cscopeRes,"\n")
-		call popup_atcursor(cscopeResMulLine, #{ line: 5, col: 10, highlight: 'WildMenu', border: [] } )
-
-	endif
 	endif
 endfunction
 
