@@ -72,6 +72,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_sparse_config_file = '.clang_tidy' " for cpp_config
 let g:syntastic_cpp_config_file = '.clang_tidy' " for cpp_config
 let g:syntastic_clang_check_config_file='.clang_tidy' " for clang_check"
 let g:syntastic_clang_tidy_config_file='.clang_tidy' "for clang_tidy"
