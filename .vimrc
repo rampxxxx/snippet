@@ -169,6 +169,7 @@ function MiBusca()
 	let miTag = trim(execute("TagbarCurrentTag"))
 	let miTagSinParentesis = substitute(miTag, '()', '', '')
 	let miWord = expand("<cword>")          " get the word under cursor
+	let miWORD = expand("<cWORD>")          " get the word under cursor
 	let miFile = expand("<afile>")          " get the word under cursor
 	let miFileEscaped = substitute(miFile, '/','\\/','g')
 	let miFuncScope = "| sed -n \'/" . miFileEscaped . "/,//p\' | sed -n \'/FunctionDecl.*" . miTagSinParentesis . "/,/FunctionDecl/p\'"
@@ -182,16 +183,25 @@ function MiBusca()
 		if strlen(show_string_clang) > 0
 " Local definition
 			"echo show_string_clang
+			let show_string_clang=miTag . " " . show_string_clang
 		else
 " Global definition
 			let decl_command_global = "clang-check " . miFile  . " -ast-dump  2>/dev/null  | grep  \"VarDecl\\|FunctionDecl\" | grep -v Parm | " . "grep -w " . miWord . " | head -1" . miLimpiaColorChars
 			let show_string_clang = trim(system(decl_command_global))
 			"echo show_string_clang
 		endif
+		let show_string_clang=miFile . " " . show_string_clang
+
+
 		"echom "miTagSinParentesis" . miTagSinParentesis
-		let cscopeCmd = "cscope -L -1 " . miWord
-		"let cscopeCmd = "cscope -L -0 " . miWord . " |grep \"" . miTagSinParentesis  .  "\" |head -1"
-		"echom "Mi cscope cmd : " . cscopeCmd
+		if miWORD =~ '('
+			"let cscopeCmd = "cscope -L -1 " . miWord " good for functions
+			let cscopeCmd = "cscope -L -1 " . miWord . " | head -1"
+		else
+			"let cscopeCmd = "cscope -L -0 " . miWord . " |grep \"" . miTagSinParentesis  .  "\" |head -1"
+			let cscopeCmd = "cscope -L -0 " . miWord . " |grep \"" . miFileEscaped  .  "\" |grep " . miTagSinParentesis . " |head -1"
+		endif
+		echom "Mi cscope cmd : " . cscopeCmd
 		let cscopeRes = system(cscopeCmd)
 		"echom "cscopeRes" . cscopeRes
 		let show_string_cscope=''
