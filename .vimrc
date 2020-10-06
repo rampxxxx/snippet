@@ -144,12 +144,12 @@ let g:pymode_rope_goto_definition_bind = "<C-]>"
 " END python mode
 
 " Init : pathogen
-filetype off
+filetype on
 execute pathogen#infect()
 execute pathogen#helptags()
 
-filetype plugin indent on
 syntax on
+filetype plugin indent on
 " End : pathogen
 "
 "
