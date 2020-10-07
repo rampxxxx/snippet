@@ -4,8 +4,8 @@ set colorcolumn=80
 " end : format
 
 set wildmenu "autocompletar visual en comandos vim
-set cursorline "Print a line at current position
-set cursorcolumn "Print a column at current position
+"set cursorline "Print a line at current position
+"set cursorcolumn "Print a column at current position
 " hi CursorColumn ctermbg=8 "Change color but default seems ok.
 
 " ini : netrw
@@ -132,7 +132,11 @@ let g:clang_check_syntax_auto=0 " avoid automatic syntax check on write.
 " END  : vim clang
 "
 " INIT supertab
+if &filetype ==# 'c' || &filetype ==# 'cpp'
 let g:SuperTabDefaultCompletionType = "<C-X><C-O>"  " Use clang complete which use omni instead <C-P>
+else
+let g:SuperTabDefaultCompletionType = "<C-P>"  
+endif
 " END supertab
 
 "INIT python mode
