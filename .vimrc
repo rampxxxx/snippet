@@ -220,7 +220,7 @@ function MiBusca()
 			let miFileDefFunction=substitute(miFileDefFunction,'\n','','g')
 			let miLineDefFunction=substitute(miLineDefFunction,'\n','','g')
 			"echom "miFileDefFunction:".miFileDefFunction
-			let miCmdTrozoFile="cat " . miFileDefFunction . " |sed -n \'" . miLineDefFunction . ",/}/p\'"
+			let miCmdTrozoFile="cat " . miFileDefFunction . " |sed -n \'" . miLineDefFunction . ",/^}/p\'"
 			"echom miCmdTrozoFile
 			let cscopeRes=system(miCmdTrozoFile)
 			let show_string_cscope=substitute(cscopeRes, '\n','','')
