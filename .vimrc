@@ -213,12 +213,14 @@ function MiBusca()
 			"echom " El res: " . cscopeRes . " ¡es una funcion!"
 
 			let miFileDefFunctionCmd = " echo \"" . cscopeRes . "\" |awk \'{print $1}\'"
+			let miLineDefFunctionCmd = " echo \"" . cscopeRes . "\" |awk \'{print $3}\'"
 			"echom "miFileDefFunctionCmd:" . miFileDefFunctionCmd
 			let miFileDefFunction = system(miFileDefFunctionCmd)
-			let miFileDefFunction=substitute(miFileDefFunction,'\n','','a')
-			let miFileDefFunction=substitute(miFileDefFunction,'\n','','a')
+			let miLineDefFunction = system(miLineDefFunctionCmd)
+			let miFileDefFunction=substitute(miFileDefFunction,'\n','','g')
+			let miLineDefFunction=substitute(miLineDefFunction,'\n','','g')
 			"echom "miFileDefFunction:".miFileDefFunction
-			let miCmdTrozoFile="cat " . miFileDefFunction . " |sed -n \'/" . miWord . "(.*[^;]$/,/}/p\'"
+			let miCmdTrozoFile="cat " . miFileDefFunction . " |sed -n \'" . miLineDefFunction . ",/}/p\'"
 			"echom miCmdTrozoFile
 			let cscopeRes=system(miCmdTrozoFile)
 			let show_string_cscope=substitute(cscopeRes, '\n','','')
