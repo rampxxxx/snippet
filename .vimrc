@@ -207,8 +207,10 @@ function MiBusca()
 		endif
 		echom "Mi cscope cmd : " . cscopeCmd
 		let cscopeRes = system(cscopeCmd)
-		"echom "cscopeRes" . cscopeRes
+		"echom "cscopeRes:(" . cscopeRes . ")"
 		let show_string_cscope=''
+		if strlen(cscopeRes) > 0
+			echom "Try cscope"
 		if cscopeRes =~ '('
 			"echom " El res: " . cscopeRes . " ¡es una funcion!"
 
@@ -227,6 +229,17 @@ function MiBusca()
 		else
 			let show_string_cscope=cscopeRes
 		endif
+	else
+		echom "Try tags"
+		let miTagCmdForFile = "grep " . miWord . " tags |awk \'{print $2}\'"
+		let miTagFile = system(miTagCmdForFile)
+		let miTagFile=substitute(miTagFile, '\n','','')
+		let miCmdTrozoFile="cat " . miTagFile . " |sed -n \'/" . miWord . "/,/^}/p\'"
+		"echom "miCmdTrozoFile:" . miCmdTrozoFile
+		let tagRes=system(miCmdTrozoFile)
+		"echom "tagRes:" . tagRes
+		let show_string_cscope=substitute(tagRes, '\n','','')
+	endif
 
 		let l:command = "silent! pedit! +setlocal\\ " .
 					\ "buftype=nofile\\ nobuflisted\\ " .
