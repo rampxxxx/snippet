@@ -265,7 +265,8 @@ function MiBusca()
 	endif
 endfunction
 
-au! CursorHold *.[ch] nested call MiBusca()
+set updatetime=1000 " run every second
+au! CursorHold *.[ch] nested silent! call MiBusca() " sync
 
 "" START : Help conf python_mode plugin
 "
