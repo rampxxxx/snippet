@@ -169,6 +169,13 @@ filetype plugin indent on
 
 
 function MiBusca()
+	let g:MiBusca_pastCurrentLine = get(g:, 'MiBusca_pastCurrentLine', 0)
+	if g:MiBusca_pastCurrentLine == line(".")
+		echom "Nothing, same line"
+		return
+	else
+		echom "New line, lets work"
+	endif
 	echom "Running ramp miBusca on:" expand("<cword>")
 	let miTag = trim(execute("TagbarCurrentTag"))
 	let miTagSinParentesis = substitute(miTag, '()', '', '')
@@ -263,10 +270,12 @@ function MiBusca()
 
 
 	endif
+	let g:MiBusca_pastCurrentLine = line(".")
 endfunction
 
 set updatetime=1000 " run every second
-au! CursorHold *.[ch] nested silent! call MiBusca() " sync
+au! CursorHold *.[ch] nested silent! call MiBusca() 
+!au! CursorHold *.[ch] nested call MiBusca() " show messages
 
 "" START : Help conf python_mode plugin
 "
