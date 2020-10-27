@@ -117,14 +117,13 @@ let g:syntastic_c_remove_include_errors = 1 " try not so slow"
 let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 " C, kernel,etc
 let g:clang_c_options = '-std=gnu11'
-let g:clang_c_completeopt = 'longest,menuone,preview'
+let g:clang_c_completeopt = 'longest,menuone'
 " split SCREEN horizontally, with new split on the top
-"let g:clang_diagsopt = '' " Disable clang diagnostics, no to clash with syntastic.
-let g:clang_diagsopt = 'botright'
+let g:clang_diagsopt = '' " Disable clang diagnostics, no to clash with syntastic.
 let g:clang_pwheight = 4
 let g:clang_verbose_pmenu = 1 " popup very verbose
-let g:clang_compilation_database='./compile_commands.json'
-let g:clang_check_syntax_auto=0 " avoid automatic syntax check on write.
+""""""""let g:clang_compilation_database='./compile_commands.json'
+let g:clang_check_syntax_auto = 0 " avoid automatic syntax check on write.
 " END : clang complete
 " INIT : vim clang (https://github.com/xavierd/clang_complete)
 " let g:clang_use_library=1
