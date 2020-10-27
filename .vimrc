@@ -273,8 +273,8 @@ function MiBusca()
 endfunction
 
 set updatetime=1000 " run every second
-au! CursorHold *.[ch] nested silent! call MiBusca() 
-!au! CursorHold *.[ch] nested call MiBusca() " show messages
+"au! CursorHold *.[ch] nested silent! call MiBusca() " silent
+"au! CursorHold *.[ch] nested call MiBusca() " show messages
 
 "" START : Help conf python_mode plugin
 "
