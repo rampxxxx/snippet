@@ -118,6 +118,7 @@ let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 " C, kernel,etc
 let g:clang_c_options = '-std=gnu11'
 let g:clang_c_completeopt = 'longest,menuone'
+let g:clang_cpp_completeopt = 'longest,menuone' " as header are type cpp
 " split SCREEN horizontally, with new split on the top
 let g:clang_diagsopt = '' " Disable clang diagnostics, no to clash with syntastic.
 let g:clang_pwheight = 4
