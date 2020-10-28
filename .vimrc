@@ -131,11 +131,9 @@ let g:clang_check_syntax_auto = 0 " avoid automatic syntax check on write.
 " END  : vim clang
 "
 " INIT supertab
-if &filetype ==# 'c' || &filetype ==# 'cpp'
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"  " Use clang complete which use omni instead <C-P>
-else
-let g:SuperTabDefaultCompletionType = "<C-P>"  
-endif
+let g:SuperTabDefaultCompletionType = "context"
+" Use clang complete which use omni instead <C-P>
+autocmd FileType c let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 " END supertab
 
 "INIT python mode
