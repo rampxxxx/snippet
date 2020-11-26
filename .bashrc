@@ -43,6 +43,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 
+alias l='ls -lartF'
 
 ## FFR formatting
 alias frr_clang='git clang-format-10.0.0 HEAD~1'
