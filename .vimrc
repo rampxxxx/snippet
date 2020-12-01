@@ -158,7 +158,7 @@ filetype plugin indent on
 "
 "
 "
-"   Hard way
+"   Hard way https://github.com/rampxxxx/snippet.git
 "nnoremap <leader>ev :split $MYVIMRC<cr>
 "nnoremap <leader>sv :source $MYVIMRC<cr>
 "vnoremap xx <Esc>`>a"<Esc>`<i"<Esc>
