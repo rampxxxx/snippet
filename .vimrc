@@ -56,6 +56,8 @@ set cscopetag " Utilizar cscope y luego tags en ctrl-]
 
 let g:airline_powerline_fonts = 1 " Airline plugin, populate symbols"
 set t_Co=256 " set proper term to allow bg col in airline"
+" Don't want git info in airline
+let g:airline_section_b ='nada'
 
 set path+=** " add recursive dir to find files."
 
