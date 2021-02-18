@@ -26,6 +26,8 @@ set smartindent
 set showmatch
 set wildmenu
 set showmode
+set list
+set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵ "Show chars if 'set list' "
 
 "" default colorscheme blue match better with all ring&bells.
 colorscheme morning  " white bg 
