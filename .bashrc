@@ -12,6 +12,7 @@ alias l='ls -lartF'
 ## FFR formatting
 alias frr_clang='git clang-format-10.0.0 HEAD~1'
 # END alias
+alias st='git status'
 
 export PATH=~/Dropbox/script:$PATH # cloud scripts
 export PATH=/home/ramp/.local/bin:$PATH # pip env
