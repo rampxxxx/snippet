@@ -7,15 +7,30 @@ test -s ~/.alias && . ~/.alias || true
 set -o vi
 
 
-
+# START alias
 alias l='ls -lartF'
-
+## FFR formatting
+alias frr_clang='git clang-format-10.0.0 HEAD~1'
+# END alias
 
 export PATH=~/Dropbox/script:$PATH # cloud scripts
 export PATH=/home/ramp/.local/bin:$PATH # pip env
 export PATH=/home/ramp/bin:$PATH # Local utilities
 
-export HISTSIZE=10000
+# START : History between terminals sync
+# Avoid duplicates
+HISTCONTROL=ignoredups:erasedups  
+export HISTSIZE=100000                   # big big history
+export HISTFILESIZE=100000               # big big history
+# When the shell exits, append to the history file instead of overwriting it
+shopt -s histappend
+
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+# END : History between terminals sync
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 
 
 if [ "$SSH_TTY" ]
@@ -44,6 +59,10 @@ if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
     GIT_PROMPT_THEME="TruncatedPwd_WindowTitle"
     source $HOME/.bash-git-prompt/gitprompt.sh
 fi
+
+# START sonar
+export PATH=/home/jg/volta/sonar_local/sonar-scanner-4.2.0.1873-linux/bin:$PATH
+# END sonar
 
 # INI : pyenv config
 export PYENV_ROOT="$HOME/.pyenv"
