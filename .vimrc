@@ -27,7 +27,8 @@ set showmatch
 set wildmenu
 set showmode
 set list
-set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵ "Show chars if 'set list' "
+"set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵ "Show chars if 'set list' "
+set listchars=eol:$,tab:>-,trail:-,nbsp:_ "No so fancy chars but faster
 
 "" default colorscheme blue match better with all ring&bells.
 colorscheme morning  " white bg 
