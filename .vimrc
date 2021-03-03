@@ -59,6 +59,8 @@ set t_Co=256 " set proper term to allow bg col in airline"
 " Don't want git info in airline
 let g:airline_section_b ='b'
 let g:airline_section_x ='x'
+let g:airline_section_z ='z'
+"let g:airline_section_warning ='w'
 
 set path+=** " add recursive dir to find files."
 
