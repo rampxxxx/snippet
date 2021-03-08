@@ -51,6 +51,7 @@ nmap <F6> :cprev <CR>
 nmap <F7> :cnext <CR>
 nmap <F9> :GitGutterNextHunk <CR>
 nmap <F10> :GitGutterPrevHunk <CR>
+nmap <F12> gg=G<C-o><C-o> " Go init, go end, format,back,back"
 set cscopequickfix=s-,c-,d-,i-,t-,e- " Lista en ventana copen
 set cscopetag " Utilizar cscope y luego tags en ctrl-]
 " end: cscope
