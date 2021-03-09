@@ -105,7 +105,8 @@ let g:syntastic_c_cppcheck_args =''
 "let g:syntastic_c_clang_tidy_args=''
 "let g:syntastic_c_clang_tidy_args='clang-analyzer-*,-clang-analyzer-cplusplus*,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,clang-analyzer-security.insecureAPI.bzero,-clang-analyzer-security.insecureAPI.strcpy'
 let g:syntastic_c_clang_tidy_args='clang-analyzer-*,-clang-analyzer-cplusplus*,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,clang-analyzer-security.insecureAPI.bzero,-clang-analyzer-security.insecureAPI.strcpy,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
-let g:syntastic_cpp_clang_tidy_args='-*,clang-analyzer-*,-clang-analyzer-cplusplus*,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,clang-analyzer-security.insecureAPI.bzero,-clang-analyzer-security.insecureAPI.strcpy,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
+"It seems that cpp options apply to .h and '-*' doesn't work
+let g:syntastic_cpp_clang_tidy_args='clang-analyzer-*,-clang-analyzer-cplusplus*,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,clang-analyzer-security.insecureAPI.bzero,-clang-analyzer-security.insecureAPI.strcpy,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
 " yang checker
 let g:syntastic_yang_checkers = ["pyang"]
 let g:syntastic_yang_cppcheck_args =''
