@@ -1,7 +1,9 @@
 " ini : format
 " -IN FRR KERNEL COD STYLE- set tabstop=2 shiftwidth=4 expandtab " tab as 4 spaces"
 set colorcolumn=80
-setlocal equalprg=clang-format " Format to frr style which is clang
+set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
+
+
 " end : format
 
 set wildmenu "autocompletar visual en comandos vim
