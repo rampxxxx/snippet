@@ -10,4 +10,4 @@ for i in "${allHosts[@]}"; do
 done
 read -r destination
 
-ssh -i  ~/.ssh/volta_id_rsa javier.garcia@"${allHosts[$destination]}"
+ssh -X -i  ~/.ssh/volta_id_rsa javier.garcia@"${allHosts[$destination]}"
