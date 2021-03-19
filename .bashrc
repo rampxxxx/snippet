@@ -17,6 +17,7 @@ alias st='git status'
 export PATH=~/Dropbox/script:$PATH # cloud scripts
 export PATH=/home/ramp/.local/bin:$PATH # pip env
 export PATH=/home/ramp/bin:$PATH # Local utilities
+export PATH=/home/ramp/pruebas/frr/cov-analysis-linux64-2020.09/bin/:$PATH #coverity
 
 # START : History between terminals sync
 # Avoid duplicates
