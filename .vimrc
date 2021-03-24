@@ -3,6 +3,8 @@
 set colorcolumn=80
 set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
 
+"mouse setting, avoid mouse changes to visual mode
+set mouse=
 
 " end : format
 
