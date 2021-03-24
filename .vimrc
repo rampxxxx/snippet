@@ -113,8 +113,8 @@ let g:syntastic_c_clang_tidy_args='clang-analyzer-*,-clang-analyzer-cplusplus*,-
 let g:syntastic_cpp_clang_tidy_args='clang-analyzer-*,-clang-analyzer-cplusplus*,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,clang-analyzer-security.insecureAPI.bzero,-clang-analyzer-security.insecureAPI.strcpy,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
 " yang checker
 let g:syntastic_yang_checkers = ["pyang"]
-let g:syntastic_yang_cppcheck_args =''
-let g:syntastic_cpp_pyang_args='-f tree'
+""pyang -p yang:yang/ietf:YANG/yang/standard/ietf/RFC yang/frr-isisd.yang
+let g:syntastic_yang_pyang_args='-p yang:yang/ietf:YANG/yang/standard/ietf/RFC'
 
 "let g:syntastic_debug = 1
 "let g:syntastic_config_debug = 1
@@ -125,6 +125,9 @@ let g:syntastic_aggregate_errors = 1
 
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 let g:syntastic_c_remove_include_errors = 1 " try not so slow"
+
+
+
 " not needeed    let g:syntastic_cpp_compiler = "g++"
 " End  : syntastic
 
