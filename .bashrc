@@ -71,3 +71,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 # END : pyenv config
+
+# START GOLANG
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin # IS REALLY NECESSARY
+export PATH=$PATH:$GOBIN
+# END GOLANG
