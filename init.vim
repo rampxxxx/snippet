@@ -19,6 +19,10 @@ autocmd FileType vim let g:SuperTabDefaultCompletionType = "<c-x><c-p>"
 " END supertab
 
 
+" INIT Easy,simple autocomplete
+"set completeopt-=preview " Avoid scratch  split WANT see doc
+set pumheight=5 " Limit menu size to allow see scratch with doc
+" END Easy,simple autocomplete
 
 
 
