@@ -77,3 +77,7 @@ export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin # IS REALLY NECESSARY
 export PATH=$PATH:$GOBIN
 # END GOLANG
+
+# START fzf bash completion
+source /usr/share/bash-completion/completions/fzf-key-bindings && source /usr/share/bash-completion/completions/fzf
+# END fzf bash completion
