@@ -6,6 +6,7 @@ Plug 'morhetz/gruvbox'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'sebdah/vim-delve' " Better delve integration that vim-go
 call plug#end()
 
 " EDITOR CONFIG
