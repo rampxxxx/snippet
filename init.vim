@@ -1,6 +1,7 @@
 " PLUGINS
 call plug#begin('~/.vim/plugged')
 Plug 'neovim/nvim-lspconfig'
+Plug 'fatih/vim-go'
 Plug 'morhetz/gruvbox'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-fugitive'
