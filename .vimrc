@@ -38,7 +38,7 @@ set listchars=eol:$,tab:>->,trail:-,nbsp:_ "No so fancy chars but faster
 
 "" default colorscheme blue match better with all ring&bells.
 "colorscheme morning  " white bg 
-colorscheme shine " white bg
+"colorscheme shine " white bg
 "colorscheme blue
 "colorscheme darkblue
 let g:airline_theme='ayu_light'
