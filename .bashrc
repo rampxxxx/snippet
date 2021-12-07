@@ -67,9 +67,9 @@ export PATH=/home/jg/volta/sonar_local/sonar-scanner-4.2.0.1873-linux/bin:$PATH
 # END sonar
 
 # INI : pyenv config
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
 # END : pyenv config
 
 # START GOLANG
