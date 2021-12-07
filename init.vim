@@ -7,6 +7,19 @@ Plug 'ervandew/supertab'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'sebdah/vim-delve' " Better delve integration that vim-go
+Plug 'preservim/tagbar' 
+
+" Start Completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim' " Pictogram in for lsp
+Plug 'ray-x/lsp_signature.nvim' " signature as you type
+
+" End Completion
+
 call plug#end()
 
 " EDITOR CONFIG
@@ -18,11 +31,16 @@ let g:SuperTabDefaultCompletionType = "context"
 " For c files use clang complete which use omni instead <C-P>
 autocmd FileType c,go let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 autocmd FileType vim let g:SuperTabDefaultCompletionType = "<c-x><c-p>"
+autocmd FileType yaml let g:SuperTabDefaultCompletionType = "<c-x><c-p>"
 " END supertab
 
+" INIT tagbar
+nmap <F8> :TagbarToggle<CR>
+" END tagbar
 
 " INIT Easy,simple autocomplete
 "set completeopt-=preview " Avoid scratch  split WANT see doc
+set completeopt=menu,menuone,noselect " From yamlls github
 set pumheight=5 " Limit menu size to allow see scratch with doc
 " END Easy,simple autocomplete
 
@@ -37,6 +55,76 @@ set pumheight=5 " Limit menu size to allow see scratch with doc
 
 " LUA CONFIG
 lua << EOF
+
+
+  -- INIT Setup nvim-cmp.
+local cmp = require("cmp")
+
+cmp.setup{
+    formatting = {
+        format = function(entry, vim_item)
+            vim_item.menu = ({
+                path = "[Path]",
+                buffer = "[Buffer]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[Lua]",
+            })[entry.source.name]
+            vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
+            return vim_item
+        end
+    },
+    documentation = {
+        maxwidth = 50,
+    },
+    mapping = {
+        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<Tab>"] = cmp.mapping.select_next_item(),
+        ["<C-t>"] = cmp.mapping.complete(),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  }
+
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig')['clangd'].setup {
+    capabilities = capabilities
+  }
+
+
+
+  -- END Setup nvim-cmp.
+
+
+
+
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -74,7 +162,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'rust_analyzer', 'gopls' }
+local servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
