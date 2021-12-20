@@ -16,43 +16,58 @@ set ttyfast
 call plug#begin('~/.vim/plugged')
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neovim/nvim-lspconfig'
-Plug 'morhetz/gruvbox'
-Plug 'ervandew/supertab'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'sebdah/vim-delve' " Better delve integration that vim-go
-Plug 'preservim/tagbar' 
-
 " Start Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'onsails/lspkind-nvim' " Pictogram in for lsp
+Plug 'onsails/lspkind-nvim' " Pictogram in for lsp Maybe clash with lsp_signature
 Plug 'ray-x/lsp_signature.nvim' " signature as you type
 
 " End Completion
-
+Plug 'fatih/vim-go'
+Plug 'morhetz/gruvbox'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'sebdah/vim-delve' " Better delve integration that vim-go
+Plug 'preservim/tagbar'
+Plug 'dominikduda/vim_current_word' " Highlight current word
 " Init nsnip
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip' " the snippets itself
 " End nsnip
-
-
 call plug#end()
 
 " EDITOR CONFIG
 colorscheme gruvbox
 
+" Active de english dictionary ([s,]s and 'Z=')
+setlocal spell spelllang=en_us
+
+set completeopt=menu,menuone,noselect
 
 " INIT supertab
 let g:SuperTabDefaultCompletionType = "context"
+" END supertab
 " For c files use clang complete which use omni instead <C-P>
+autocmd FileType yaml let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+autocmd FileType yaml set omnifunc=v:lua.vim.lsp.omnifunc completeopt=noinsert,menuone
 autocmd FileType c,go let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 autocmd FileType vim let g:SuperTabDefaultCompletionType = "<c-x><c-p>"
-autocmd FileType yaml let g:SuperTabDefaultCompletionType = "<c-x><c-p>"
+
+autocmd FileType sh let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+autocmd FileType py let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 " END supertab
+
+" INIT tab
+nmap <gt> :tabnext<CR>
+nmap <gT> :tabprev<CR>
+" END tab
+"
+nmap <F6> :cprev<CR>
+nmap <F7> :cnext<CR>
 
 " INIT tagbar
 nmap <F2> gg=G<C-o><C-o> " Go init, go end, format,back,back"
@@ -62,6 +77,37 @@ nmap <F7> :cnext <CR>
 nmap <F9> :GitGutterNextHunk <CR>
 nmap <F10> :GitGutterPrevHunk <CR>
 nmap <F12> :GitGutterPreviewHunk <CR>
+
+
+
+" From the github tagbar comments on issues
+let g:tagbar_type_go = {  
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
 " END tagbar
 
 " INIT Easy,simple autocomplete
@@ -83,11 +129,14 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 
 
-
-
-
-" LUA CONFIG
+" INIT : LUA CONFIG
 lua << EOF
+
+-- INIT debuggin
+vim.lsp.set_log_level("debug") -- check ~/.cache/nvim/lsp.log
+-- END debuggin
+
+
 servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls' }
 
 
@@ -187,12 +236,18 @@ local on_attach = function(client, bufnr)
 
 end
 
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
+capabilities=capabilities -- Is this the correct possition :-\
     }
   }
 end
@@ -201,6 +256,39 @@ end
 
 
 
+
+
+
+-- INIT . yaml
+  local custom_lsp_attach = function(_, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  end
+nvim_lsp.yamlls.setup {
+	on_attach = custom_lsp_attach,
+	flags = {
+		debounce_text_changes = 150,
+		},
+	settings = {
+		yaml = {
+			trace = {                                                                                                                                                                                       
+				server = "verbose"                                                                                                                                                                          
+				},  
+			hover = {"enable"},
+			schemas = {
+				["kubernetes"] = "/*.yaml" ,
+				--["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.yaml"
+				--["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+				--["../path/relative/to/file.yml"] = "/.github/workflows/*",
+				--["/path/from/root/of/project"] = "/.github/workflows/*"
+				},
+			schemaStore = {
+				url = "https://www.schemastore.org/api/json/catalog.json",
+			enable = true,
+			}
+		},
+	}
+}
+-- END . yaml
 
   -- INIT Setup luasnip
  local luasnip = require 'luasnip'
