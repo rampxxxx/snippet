@@ -55,11 +55,13 @@ autocmd FileType yaml let g:SuperTabDefaultCompletionType = "<c-x><c-p>"
 " END supertab
 
 " INIT tagbar
+nmap <F2> gg=G<C-o><C-o> " Go init, go end, format,back,back"
 nmap <F8> :TagbarToggle<CR>
 nmap <F6> :cprev <CR>
 nmap <F7> :cnext <CR>
 nmap <F9> :GitGutterNextHunk <CR>
 nmap <F10> :GitGutterPrevHunk <CR>
+nmap <F12> :GitGutterPreviewHunk <CR>
 " END tagbar
 
 " INIT Easy,simple autocomplete
