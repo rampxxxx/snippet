@@ -1,7 +1,21 @@
+" INI The Classics
+set nocompatible "nvim is always nocompatible
+set showmatch
+set hlsearch
+set incsearch
+set number
+set autoindent
+set wildmode=longest, list
+set cc=80
+set clipboard=unnamedplus
+set ttyfast
+" END The Classics
+
+
 " PLUGINS
 call plug#begin('~/.vim/plugged')
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neovim/nvim-lspconfig'
-Plug 'fatih/vim-go'
 Plug 'morhetz/gruvbox'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-fugitive'
@@ -51,7 +65,14 @@ set pumheight=5 " Limit menu size to allow see scratch with doc
 " END Easy,simple autocomplete
 
 
-
+" INI Move blocks
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+" END Move blocks
 
 
 
@@ -61,6 +82,7 @@ set pumheight=5 " Limit menu size to allow see scratch with doc
 
 " LUA CONFIG
 lua << EOF
+servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls' }
 
 
 -- INIT lsp_signature
@@ -83,7 +105,7 @@ lua << EOF
   -- this setting will be helpful if you do not want the PUM and floating win overlap
   fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
   hint_enable = true, -- virtual hint enable
-  hint_prefix = "🐼 ",  -- Panda for parameter
+  hint_prefix = "🔭", --🐼 ",  -- Panda for parameter
   hint_scheme = "String",
   use_lspsaga = false,  -- set to true if you want to use lspsaga popup
   hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
@@ -119,7 +141,11 @@ require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use t
 
 
 
--- END Setup lsp
+-- END lsp_signature
+
+
+-- INI Setup lsp
+
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -155,27 +181,12 @@ local on_attach = function(client, bufnr)
 
 end
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
---capabilities.textDocument.completion.completionItem.snippetSupport=true
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-
--- INIT lsp_signature
-local lsp_signature_setup = (function(client, bufnr)
-    require "lsp_signature".on_attach()  -- Note: add in lsp client on-attach
-    end)()
--- END lsp_signature
-
-local servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
-    on_attach = lsp_signature_setup, --on_attach,
+    on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
-capabilities=capabilities
     }
   }
 end
@@ -211,7 +222,7 @@ cmp.setup{
                 luasnip = "[SNIP x]",
                 nvim_lua = "[Lua x]",
             })[entry.source.name]
-            vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. "🐼" .. vim_item.kind
+            vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. "🔭" .. vim_item.kind
             vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
             return vim_item
         end
@@ -278,16 +289,18 @@ mapping = {
 
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   require('lspconfig')['gopls'].setup {
-    capabilities = capabilities
-  }
-  require('lspconfig')['clangd'].setup {
-    capabilities = capabilities
+    capabilities = capabilities,
+    on_attach = on_attach,
   }
 
-
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    capabilities = capabilities,
+    on_attach = on_attach
+    }
+    end
 
   -- END Setup nvim-cmp.
 EOF
