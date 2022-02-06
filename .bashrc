@@ -125,3 +125,7 @@ complete -C ~/bin/terraform terraform
 
 
 complete -C /home/jg/bin/terraform terraform
+
+
+# gh generate completion https://cli.github.com/manual/gh_completion
+eval "$(gh completion -s bash)"
