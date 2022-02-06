@@ -7,6 +7,8 @@ test -s ~/.alias && . ~/.alias || true
 set -o vi
 
 
+if [ "$SSH_TTY" ]
+then
 LOCAL_ID=$(grep -w ID /etc/os-release|awk -F= '{print $2}'|awk -F\" '{print $2}') # TO adapt to the distro
 echo "La distro es " $LOCAL_ID
 if [ "$LOCAL_ID" = "rhel" ]; 
@@ -16,7 +18,7 @@ then
 else
 	echo "Adapting unkown distro " $LOCAL_ID
 fi
-
+fi
 
 # START alias
 alias l='ls -lartF'
