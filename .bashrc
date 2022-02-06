@@ -112,20 +112,5 @@ source /usr/share/bash-completion/completions/fzf-key-bindings && source /usr/sh
 # END fzf bash completion
 
 
-# START TERRAFORM
-terraform -install-autocomplete
-complete -C ~/bin/terraform terraform
-# END TERRAFORM
-
-
-
-#export DRI_PRIME=0 #Used to use only gpu #0 but now rhel/lenovo is boot with nvidia blacklisted
-
-complete -C ~/bin/terraform terraform
-
-
-complete -C /home/jg/bin/terraform terraform
-
-
 # gh generate completion https://cli.github.com/manual/gh_completion
 eval "$(gh completion -s bash)"
