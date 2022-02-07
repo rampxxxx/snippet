@@ -38,7 +38,20 @@ Plug 'dominikduda/vim_current_word' " Highlight current word
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip' " the snippets itself
 " End nsnip
+"
+"
+" Init : Rust
+Plug 'simrat39/rust-tools.nvim'
+" End : Rust
+
+
 call plug#end()
+
+" INIT formatting
+autocmd FileType c,c++ set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
+autocmd FileType rust set equalprg=rustfmt
+" END formatting
+
 
 " EDITOR CONFIG
 colorscheme gruvbox
@@ -139,7 +152,7 @@ vim.lsp.set_log_level("debug") -- check ~/.cache/nvim/lsp.log
 -- END debuggin
 
 
-servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls' }
+servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls'} --, 'rust-analyzer' }
 
 
 -- INIT lsp_signature
@@ -253,6 +266,44 @@ capabilities=capabilities -- Is this the correct possition :-\
     }
   }
 end
+
+-- INIT Setup rust-analyzer , it seems rust is bit special.
+local opts = {
+    tools = { -- rust-tools options
+        autoSetHints = true,
+        hover_with_actions = true,
+        inlay_hints = {
+            show_parameter_hints = false,
+            parameter_hints_prefix = "",
+            other_hints_prefix = "",
+        },
+    },
+
+    -- all the opts to send to nvim-lspconfig
+    -- these override the defaults set by rust-tools.nvim
+    -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
+    server = {
+        -- on_attach is a callback called when the language server attachs to the buffer
+        on_attach = on_attach,
+        settings = {
+            -- to enable rust-analyzer settings visit:
+            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+            ["rust-analyzer"] = {
+                -- enable clippy on save
+                checkOnSave = {
+                    command = "clippy"
+                },
+            }
+        }
+    },
+}
+
+require('rust-tools').setup(opts)
+-- END Setup rust-analyzer
+
+
+
+
 -- END Setup lsp
 
 

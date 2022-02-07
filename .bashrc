@@ -114,3 +114,10 @@ source /usr/share/bash-completion/completions/fzf-key-bindings && source /usr/sh
 
 # gh generate completion https://cli.github.com/manual/gh_completion
 eval "$(gh completion -s bash)"
+
+
+# START rust
+# ...set PATH to toolchain by hand :-(
+export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH
+
+# END rust

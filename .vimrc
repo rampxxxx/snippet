@@ -2,6 +2,8 @@
 " -IN FRR KERNEL COD STYLE- set tabstop=2 shiftwidth=4 expandtab " tab as 4 spaces"
 set colorcolumn=80
 set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
+autocmd FileType c,c++ set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
+autocmd FileType rust set equalprg=rustfmt :way
 
 "mouse setting, avoid mouse changes to visual mode
 set mouse=
