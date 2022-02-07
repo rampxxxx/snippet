@@ -24,6 +24,10 @@ fi
 alias l='ls -lartF'
 ## FFR formatting
 alias frr_clang='git clang-format-10.0.0 HEAD~1'
+## git alias
+alias gs='git status'
+alias gl='git log'
+alias gd='git diff'
 # END alias
 alias st='git status'
 
