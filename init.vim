@@ -50,7 +50,15 @@ call plug#end()
 " INIT formatting
 autocmd FileType c,c++ set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
 autocmd FileType rust set equalprg=rustfmt
-autocmd BufWritePre *.rs :%!rustfmt
+autocmd BufWritePre *.rs call FormatOnSaveRust()
+function! FormatOnSaveRust()
+	let cursor_position = getpos('.')
+	:%!rustfmt
+	if v:shell_error > 0 
+		silent undo
+	endif
+	call setpos('.', cursor_position)
+endfunction
 " END formatting
 
 
