@@ -44,6 +44,7 @@ Plug 'saadparwaiz1/cmp_luasnip' " the snippets itself
 Plug 'simrat39/rust-tools.nvim'
 " End : Rust
 
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
 call plug#end()
 
