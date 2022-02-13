@@ -92,7 +92,13 @@ nmap <gT> :tabprev<CR>
 nmap <F6> :cprev<CR>
 nmap <F7> :cnext<CR>
 
-" INIT tagbar
+" INIT key mappings
+nmap <F1> :call MyGrep()<CR>
+function! MyGrep()
+	let myExtension = '*.' . expand('%:e')
+	:execute 'silent grep -R <cword> --include ' . myExtension . ' .'
+	copen
+endfunction
 nmap <F2> gg=G<C-o><C-o> " Go init, go end, format,back,back"
 nmap <F8> :TagbarToggle<CR>
 nmap <F4> :GitGutterFold <CR>
@@ -102,6 +108,7 @@ nmap <F7> :cnext <CR>
 nmap <F9> :GitGutterPrevHunk <CR>
 nmap <F10> :GitGutterNextHunk <CR>
 nmap <F12> :GitGutterPreviewHunk <CR>
+" END key mappings
 
 
 
