@@ -51,7 +51,7 @@ call plug#end()
 " INIT formatting
 autocmd FileType c,c++ set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
 autocmd FileType rust set equalprg=rustfmt
-autocmd BufWritePre *.rs call FormatOnSaveRust() " Instead use equalprg, more control.
+autocmd BufWritePre *.rs call FormatOnSaveRust()
 function! FormatOnSaveRust()
 	let cursor_position = getpos('.')
 	:%!rustfmt
@@ -99,7 +99,7 @@ function! MyGrep()
 	:execute 'silent grep -R <cword> --include ' . myExtension . ' .'
 	copen
 endfunction
-nmap <F2> gg=G<C-o> " Go init, go end, format,back.Using equalprg instead FormatOnSaveRust,etc
+nmap <F2> gg=G<C-o><C-o> " Go init, go end, format,back,back"
 nmap <F8> :TagbarToggle<CR>
 nmap <F4> :GitGutterFold <CR>
 nmap <F5> :GitGutterUndoHunk <CR>
