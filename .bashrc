@@ -7,7 +7,7 @@ test -s ~/.alias && . ~/.alias || true
 set -o vi
 
 
-if [ "$SSH_TTY" ]
+if [ "$SSH_TTY" -o "$DISPLAY" ]
 then
 LOCAL_ID=$(grep -w ID /etc/os-release|awk -F= '{print $2}'|awk -F\" '{print $2}') # TO adapt to the distro
 echo "La distro es " $LOCAL_ID
