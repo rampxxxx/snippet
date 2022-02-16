@@ -63,8 +63,10 @@ endfunction
 " END formatting
 
 
-" EDITOR CONFIG
+" INIT color
 colorscheme gruvbox
+hi DiagnosticError ctermfg=13 " Change from a 'red' bad for my eyes to a 'cyan'.
+" END color
 
 " Active de english dictionary ([s,]s and 'Z=')
 setlocal spell spelllang=en_us
