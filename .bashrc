@@ -9,15 +9,20 @@ set -o vi
 
 if [ "$SSH_TTY" -o "$DISPLAY" ]
 then
-LOCAL_ID=$(grep -w ID /etc/os-release|awk -F= '{print $2}'|awk -F\" '{print $2}') # TO adapt to the distro
-echo "La distro es " $LOCAL_ID
-if [ "$LOCAL_ID" = "rhel" ]; 
-then
-	echo "Adapting rhel"
-	export PS1='\u:\w>'
-else
-	echo "Adapting unkown distro " $LOCAL_ID
-fi
+	LOCAL_ID=$(grep -w ID /etc/os-release|awk -F= '{print $2}') # TO adapt to the distro
+	echo "La distro es " $LOCAL_ID
+	if [ "$LOCAL_ID" = "\"rhel\"" ];
+	then
+		echo "Adapting rhel"
+		export PS1='\u:\w>'
+	elif [ "$LOCAL_ID" = "debian" ];
+	then
+		echo "Adapting debian"
+		# in debian nvim appimage need extracto to squash,
+		export PATH=~/bin/squashfs-root/usr/bin:$PATH
+	else
+		echo "Adapting unkown distro " $LOCAL_ID
+	fi
 fi
 
 # START alias
@@ -112,12 +117,18 @@ export PATH=~/bin/protocol:$PATH
 # END protocol utility,create ascii headers
 
 # START fzf bash completion
+if [ "$SSH_TTY" -o "$DISPLAY" ]
+then
 source /usr/share/bash-completion/completions/fzf-key-bindings && source /usr/share/bash-completion/completions/fzf
+fi
 # END fzf bash completion
 
 
 # gh generate completion https://cli.github.com/manual/gh_completion
+if [ "$SSH_TTY" -o "$DISPLAY" ]
+then
 eval "$(gh completion -s bash)"
+fi
 
 
 # START rust
