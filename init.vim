@@ -63,6 +63,11 @@ endfunction
 " END formatting
 
 
+" INIT make command
+autocmd FileType rust set makeprg=cargo\ build
+" END make command
+
+
 " INIT color
 colorscheme gruvbox
 hi DiagnosticError ctermfg=13 " Change from a 'red' bad for my eyes to a 'cyan'.
