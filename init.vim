@@ -73,6 +73,12 @@ colorscheme gruvbox
 hi DiagnosticError ctermfg=13 " Change from a 'red' bad for my eyes to a 'cyan'.
 " END color
 
+" INIT global status line
+set laststatus=3 "Starting nvim 0.7 global status line
+" Set line separator between split less wide with "highlight Win... "
+" highlight WinSeparator guibg=None " Not needed as colorscheme do that.
+" END global status line
+
 " Active de english dictionary ([s,]s and 'Z=')
 setlocal spell spelllang=en_us
 
