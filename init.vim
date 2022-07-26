@@ -49,6 +49,7 @@ Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 call plug#end()
 
 " INIT formatting
+autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType c,c++ set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
 autocmd FileType rust set equalprg=rustfmt
 autocmd BufWritePre *.rs call FormatOnSaveRust()
