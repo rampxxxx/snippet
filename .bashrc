@@ -25,6 +25,11 @@ then
 	fi
 fi
 
+if [ -f "~/ibm/.env.sh" ]; then
+	# Adapt all env vars,etc for go devel
+	source ~/ibm/.env.sh
+fi
+
 # START alias
 alias l='ls -lartF'
 ## FFR formatting
@@ -136,3 +141,7 @@ fi
 export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH
 
 # END rust
+
+
+
+
