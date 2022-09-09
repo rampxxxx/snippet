@@ -405,8 +405,8 @@ cmp.setup{
             return vim_item
         end
     },
-    documentation = {
-        maxwidth = 50,
+    window = {
+        documentation = cmp.config.window.bordered()
     },
 mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
