@@ -113,7 +113,14 @@ function! MyGrep()
 	:execute 'silent grep -R <cword> --include ' . myExtension . ' .'
 	copen
 endfunction
+function! MyGrepParam()
+	let myExtension = '*.' . expand('%:e')
+	let name = input('Search for: ')
+	:execute 'silent grep -R ' . name . ' --include ' . myExtension . ' .'
+	copen
+endfunction
 nmap <F2> gg=G<C-o><C-o> " Go init, go end, format,back,back"
+nmap <F3> :call MyGrepParam()<CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <F4> :GitGutterFold <CR>
 nmap <F5> :GitGutterUndoHunk <CR>
