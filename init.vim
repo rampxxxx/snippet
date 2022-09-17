@@ -121,12 +121,12 @@ function! MyGrepParam()
 endfunction
 nmap <F2> gg=G<C-o><C-o> " Go init, go end, format,back,back"
 nmap <F3> :call MyGrepParam()<CR>
-nmap <F8> :TagbarToggle<CR>
 nmap <F4> :GitGutterFold <CR>
 nmap <F5> :GitGutterUndoHunk <CR>
 nmap <F6> :cprev <CR>
 nmap <F7> :cnext <CR>
-nmap <F9> :GitGutterPrevHunk <CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :TagbarCurrentTag p  <CR>
 nmap <F10> :GitGutterNextHunk <CR>
 nmap <F12> :GitGutterPreviewHunk <CR>
 " END key mappings
