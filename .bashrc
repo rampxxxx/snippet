@@ -25,7 +25,7 @@ then
 	fi
 fi
 
-if [ -f "~/ibm/.env.sh" ]; then
+if [ -f "$HOME/ibm/.env.sh" ]; then
 	# Adapt all env vars,etc for go devel
 	source ~/ibm/.env.sh
 fi
@@ -38,8 +38,9 @@ alias frr_clang='git clang-format-10.0.0 HEAD~1'
 alias gs='git status'
 alias gl='git log'
 alias gd='git diff'
-# END alias
 alias st='git status'
+alias j='jobs'
+# END alias
 
 export PATH=~/Dropbox/script:$PATH # cloud scripts
 export PATH=~/.local/bin:$PATH # pip env
@@ -110,7 +111,7 @@ export PATH=~/volta/sonar_local/sonar-scanner-4.2.0.1873-linux/bin:$PATH
 # START GOLANG
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin # IS REALLY NECESSARY
-export PATH=~/ibm/go-1.17.3/go/bin:$PATH:$GOBIN # Point to local 1.17
+export PATH=$GOBIN:$PATH # Point to local 1.17
 # END GOLANG
 
 # START ltex markdown lsp server
@@ -145,3 +146,5 @@ export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH
 
 
 
+
+[[ -s "/home/jg/.gvm/scripts/gvm" ]] && source "/home/jg/.gvm/scripts/gvm"
