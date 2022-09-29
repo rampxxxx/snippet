@@ -9,6 +9,7 @@ set wildmode=longest, list
 set cc=80
 set clipboard=unnamedplus
 set ttyfast
+set backup
 " END The Classics
 
 
