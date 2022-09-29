@@ -10,6 +10,10 @@ set cc=80
 set clipboard=unnamedplus
 set ttyfast
 set backup
+augroup DynamicNumber " Number in current split only, save space.
+    autocmd WinEnter * set number
+    autocmd WinLeave * set nonumber
+augroup END
 " END The Classics
 
 
