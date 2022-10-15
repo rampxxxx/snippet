@@ -43,6 +43,7 @@ Plug 'dominikduda/vim_current_word' " Highlight current word
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip' " the snippets itself
 " End nsnip
+Plug 'mfussenegger/nvim-lint' " Linter for nvim
 "
 "
 " Init : Rust
@@ -194,6 +195,18 @@ lua << EOF
 vim.lsp.set_log_level("debug") -- check ~/.cache/nvim/lsp.log
 -- END debuggin
 
+-- INIT nvim-lint
+require('lint').linters_by_ft = {
+  go = {'golangcilint',},
+  sh = {'shellcheck',},
+  c = {'cppcheck'}
+}
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
+-- END nvim-lint
 
 servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls'} --, 'rust-analyzer' }
 
