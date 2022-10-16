@@ -76,8 +76,10 @@ autocmd FileType rust set makeprg=cargo\ build
 
 
 " INIT color
+let gruvbox_contrast_dark='medium' " Default medium is ok , others 'soft', 'hard'
 colorscheme gruvbox
-hi DiagnosticError ctermfg=13 " Change from a 'red' bad for my eyes to a 'cyan'.
+hi DiagnosticError ctermfg=13 " Change from a 'red' bad for my eyes to a 'purple'.
+hi DiagnosticInfo ctermfg=12 " Change from a dark 'blue' cannot see to a light 'blue'.
 " END color
 
 " INIT global status line
