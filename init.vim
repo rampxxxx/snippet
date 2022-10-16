@@ -135,7 +135,7 @@ nmap <F6> :cprev <CR>
 nmap <F7> :cnext <CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :TagbarCurrentTag p  <CR>
-nmap <F10> :GitGutterNextHunk <CR>
+nmap <F10> :lua require('lint').try_lint() <CR>
 nmap <F12> :GitGutterPreviewHunk <CR>
 " END key mappings
 
@@ -201,7 +201,7 @@ vim.lsp.set_log_level("debug") -- check ~/.cache/nvim/lsp.log
 require('lint').linters_by_ft = {
   go = {'golangcilint',},
   sh = {'shellcheck',},
-  c = {'cppcheck'}
+  c = {'clangtidy'}
 }
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
