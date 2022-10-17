@@ -14,6 +14,8 @@ augroup DynamicNumber " Number in current split only, save space.
     autocmd WinEnter * set number
     autocmd WinLeave * set nonumber
 augroup END
+set ignorecase " This case combination config seems util
+set smartcase  " This case combination config seems util
 " END The Classics
 
 
