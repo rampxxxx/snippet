@@ -52,6 +52,12 @@ Plug 'mfussenegger/nvim-lint' " Linter for nvim
 Plug 'simrat39/rust-tools.nvim'
 " End : Rust
 
+" Init : treesitter
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'rose-pine/neovim'
+" End : treesitter
+
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
 call plug#end()
@@ -78,10 +84,7 @@ autocmd FileType rust set makeprg=cargo\ build
 
 
 " INIT color
-let gruvbox_contrast_dark='medium' " Default medium is ok , others 'soft', 'hard'
-colorscheme gruvbox
-hi DiagnosticError ctermfg=13 " Change from a 'red' bad for my eyes to a 'purple'.
-hi DiagnosticInfo ctermfg=12 " Change from a dark 'blue' cannot see to a light 'blue'.
+colorscheme rose-pine
 " END color
 
 " INIT global status line
@@ -493,4 +496,75 @@ for _, lsp in ipairs(servers) do
     end
 
   -- END Setup nvim-cmp.
+
+EOF
+
+
+
+
+lua << EOF
+-- [[ Configure Treesitter ]]
+-- See `:help nvim-treesitter`
+require('nvim-treesitter.configs').setup {
+  -- Add languages to be installed here that you want installed for treesitter
+  ensure_installed = { 'bash', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help' },
+
+  highlight = { enable = true },
+  indent = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<c-space>',
+      node_incremental = '<c-space>',
+      scope_incremental = '<c-s>',
+      node_decremental = '<c-backspace>',
+    },
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']]'] = '@function.outer',
+        [']m'] = '@class.outer',
+      },
+      goto_next_end = {
+        [']['] = '@function.inner',
+        [']M'] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ['<leader>a'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<leader>A'] = '@parameter.inner',
+      },
+    },
+  },
+}
+
+
 EOF
