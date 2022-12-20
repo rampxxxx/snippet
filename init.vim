@@ -21,7 +21,6 @@ set smartcase  " This case combination config seems util
 
 " PLUGINS
 call plug#begin('~/.vim/plugged')
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neovim/nvim-lspconfig'
 " Start Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -59,6 +58,7 @@ Plug 'rose-pine/neovim'
 " End : treesitter
 
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Here avoid class with LSP maps, in particular 'gd'
 
 call plug#end()
 
