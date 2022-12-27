@@ -546,12 +546,12 @@ require('nvim-treesitter.configs').setup {
         [']M'] = '@class.outer',
       },
       goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
+        ['[['] = '@function.outer',
+        ['[m'] = '@class.outer',
       },
       goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
+        ['[]'] = '@function.outer',
+        ['[M'] = '@class.outer',
       },
     },
     swap = {
