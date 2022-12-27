@@ -56,6 +56,13 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'rose-pine/neovim'
 " End : treesitter
+"
+" Init : telescope (fd and ripgrep are dependencies commands)
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim' " native sorter for performance
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+" or                                , { 'branch': '0.1.x' }
+" End : telescope
 
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Here avoid class with LSP maps, in particular 'gd'
@@ -567,4 +574,15 @@ require('nvim-treesitter.configs').setup {
 }
 
 
+EOF
+
+lua << EOF
+-- INIT : Telescope setup
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fl', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fg', builtin.grep_string, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+-- END : Telescope setup
 EOF
