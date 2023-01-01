@@ -1,4 +1,6 @@
 " INI The Classics
+nnoremap <SPACE> <Nop> " avoid other to capture space, just in case.
+let mapleader=" " " more common and simpler space.
 set nocompatible "nvim is always nocompatible
 set showmatch
 set hlsearch
