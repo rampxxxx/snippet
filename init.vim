@@ -143,6 +143,7 @@ function! MyGrepParam()
 endfunction
 nmap <F2> gg=G<C-o><C-o> " Go init, go end, format,back,back"
 nmap <F3> :call MyGrepParam()<CR>
+" nmap <F3> :<cmd>lua require('telescope.builtin').grep_string()<CR> " an option?
 nmap <F4> :GitGutterFold <CR>
 nmap <F5> :GitGutterUndoHunk <CR>
 nmap <F6> :cprev <CR>
@@ -583,6 +584,7 @@ lua << EOF
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fl', builtin.live_grep, {})
+--vim.keymap.set('n', '<F3>', builtin.grep_string, {}) -- an option?
 vim.keymap.set('n', '<leader>fg', builtin.grep_string, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
