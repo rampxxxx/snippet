@@ -150,7 +150,7 @@ nmap <F6> :cprev <CR>
 nmap <F7> :cnext <CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :TagbarCurrentTag p  <CR>
-nmap <F10> :lua require('lint').try_lint() <CR>
+nmap <F10> :lua vim.lsp.buf.rename()<CR>
 nmap <F12> :GitGutterPreviewHunk <CR>
 " END key mappings
 
