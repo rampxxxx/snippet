@@ -54,7 +54,7 @@ Plug 'simrat39/rust-tools.nvim'
 " End : Rust
 
 " Init : treesitter
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter',  {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'rose-pine/neovim'
 " End : treesitter
