@@ -78,7 +78,7 @@ then
 fi
 
 ### kernel stuff: build scope db, ...
-export TMPDIR=~/tmp # To use /home fs instead of root that is bloated.
+export TMPDIR=~/tmp && mkdir -p $TMPDIR || echo "====>>>> Cannot crate $TMPDIR <<<<=====" # To use /home fs instead of root that is bloated.
 ulimit -c unlimited # To allow create core
 
 
