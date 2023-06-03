@@ -49,7 +49,7 @@ export PATH=~/bin/cov-analysis-linux64-2020.09/bin:$PATH # coverity
 
 # START : History between terminals sync
 # Avoid duplicates
-HISTCONTROL=ignoredups:erasedups  
+HISTCONTROL=ignoredups:erasedups  # Add ignorespace to avoid adding cmd's starting with space
 export HISTSIZE=100000                   # big big history
 export HISTFILESIZE=100000               # big big history
 # When the shell exits, append to the history file instead of overwriting it
