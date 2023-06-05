@@ -35,7 +35,7 @@ alias l='ls -lartF'
 ## FFR formatting
 alias frr_clang='git clang-format-10.0.0 HEAD~1'
 ## git alias
-alias gs='git status'
+alias gs='git status; ls *\.go 2>/dev/null  || ls *\.c 2>/dev/null || ls *\.cpp 2>/dev/null || ls *\.sh 2>/dev/null && echo "Src files in repo root BE Careful" '
 alias gl='git log'
 alias gd='git diff'
 alias st='git status'
