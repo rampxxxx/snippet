@@ -75,11 +75,24 @@ call plug#end()
 autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType c,c++ set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
 autocmd FileType rust set equalprg=rustfmt
+" golang formater.
+if executable('shfmt')
+	autocmd FileType sh set equalprg=shfmt " This is the golang
+	autocmd BufWritePre *.sh call FormatOnSaveSh()
+	function! FormatOnSaveSh()
+		let cursor_position = getpos('.')
+		:%!shfmt
+		if v:shell_error > 0
+			silent undo
+		endif
+		call setpos('.', cursor_position)
+	endfunction
+endif
 autocmd BufWritePre *.rs call FormatOnSaveRust()
 function! FormatOnSaveRust()
 	let cursor_position = getpos('.')
 	:%!rustfmt
-	if v:shell_error > 0 
+	if v:shell_error > 0
 		silent undo
 	endif
 	call setpos('.', cursor_position)
