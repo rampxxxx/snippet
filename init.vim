@@ -39,9 +39,17 @@ Plug 'morhetz/gruvbox'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'sebdah/vim-delve' " Better delve integration that vim-go
 Plug 'preservim/tagbar'
 Plug 'dominikduda/vim_current_word' " Highlight current word
+
+" Init debug TJ suggestion ;-)
+Plug 'mfussenegger/nvim-dap'
+Plug 'leoluz/nvim-dap-go' " Automatically nvim-dap configs, help use nvim-dap & dlv without vscode extensions.
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'nvim-telescope/telescope-dap.nvim'
+" End debug
+"
 " Init nsnip
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip' " the snippets itself
@@ -610,3 +618,6 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 -- END : Telescope setup
 EOF
+
+lua require('dap-go').setup() -- nvim-dap-go register plug and configs.
+lua require("dapui").setup() -- nvim-dap-ui config.
