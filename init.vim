@@ -146,22 +146,9 @@ nmap <gt> :tabnext<CR>
 nmap <gT> :tabprev<CR>
 " END tab
 "
-nmap <F6> :cprev<CR>
-nmap <F7> :cnext<CR>
 
 " INIT key mappings
 nmap <F1> :call MyGrep()<CR>
-function! MyGrep()
-	let myExtension = '*.' . expand('%:e')
-	:execute 'silent grep -R <cword> --include ' . myExtension . ' .'
-	copen
-endfunction
-function! MyGrepParam()
-	let myExtension = '*.' . expand('%:e')
-	let name = input('Search for: ')
-	:execute 'silent grep -R ' . name . ' --include ' . myExtension . ' .'
-	copen
-endfunction
 nmap <F2> gg=G<C-o><C-o> " Go init, go end, format,back,back"
 nmap <F3> :call MyGrepParam()<CR>
 " nmap <F3> :<cmd>lua require('telescope.builtin').grep_string()<CR> " an option?
@@ -173,6 +160,17 @@ nmap <F8> :TagbarToggle<CR>
 nmap <F9> :TagbarCurrentTag p  <CR>
 nmap <F10> :lua vim.lsp.buf.rename()<CR>
 nmap <F12> :GitGutterPreviewHunk <CR>
+function! MyGrep()
+let myExtension = '*.' . expand('%:e')
+:execute 'silent grep -R <cword> --include ' . myExtension . ' .'
+copen
+endfunction
+function! MyGrepParam()
+let myExtension = '*.' . expand('%:e')
+let name = input('Search for: ')
+:execute 'silent grep -R ' . name . ' --include ' . myExtension . ' .'
+copen
+endfunction
 " END key mappings
 
 
@@ -619,5 +617,17 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 -- END : Telescope setup
 EOF
 
+" INIT DEBUG CFG
 lua require('dap-go').setup() -- nvim-dap-go register plug and configs.
 lua require("dapui").setup() -- nvim-dap-ui config.
+lua require("nvim-dap-virtual-text").setup() -- Floating/Virtual information of vars inlined.
+lua << EOF
+vim.keymap.set("n", "<F1>", ":lua require'dap'.toggle_breakpoint()<CR>")
+vim.keymap.set("n", "<F2>", ":lua require'dap'.continue()<CR>")
+vim.keymap.set("n", "<F3>", ":lua require'dap'.step_over()<CR>")
+vim.keymap.set("n", "<F4>", ":lua require'dap'.step_into()<CR>")
+vim.keymap.set("n", "<leader>do", ":lua require'dap'.step_out()<CR>")
+vim.keymap.set("n", "<leader>dc", ":lua require'dap'.close()<CR>")
+vim.keymap.set("n", "<leader>du", ":lua require'dapui'.open()<CR>")
+EOF
+" END DEBUG CFG
