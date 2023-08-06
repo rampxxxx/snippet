@@ -45,8 +45,8 @@ Plug 'dominikduda/vim_current_word' " Highlight current word
 " Init debug TJ suggestion ;-)
 Plug 'mfussenegger/nvim-dap'
 Plug 'leoluz/nvim-dap-go' " Automatically nvim-dap configs, help use nvim-dap & dlv without vscode extensions.
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'rcarriga/nvim-dap-ui' " Open several windows to show local vars, stack, dap console,...
+Plug 'theHamsta/nvim-dap-virtual-text' " Show floating var values while debugging.
 Plug 'nvim-telescope/telescope-dap.nvim'
 " End debug
 "
@@ -622,12 +622,19 @@ lua require('dap-go').setup() -- nvim-dap-go register plug and configs.
 lua require("dapui").setup() -- nvim-dap-ui config.
 lua require("nvim-dap-virtual-text").setup() -- Floating/Virtual information of vars inlined.
 lua << EOF
+-- INIT KEYS
 vim.keymap.set("n", "<F1>", ":lua require'dap'.toggle_breakpoint()<CR>")
 vim.keymap.set("n", "<F2>", ":lua require'dap'.continue()<CR>")
+-- In insert mode Ctrl-K + <desired key> will show key combination
 vim.keymap.set("n", "<F3>", ":lua require'dap'.step_over()<CR>")
 vim.keymap.set("n", "<F4>", ":lua require'dap'.step_into()<CR>")
+vim.keymap.set("n", "<M-O>5P", ":lua require'dapui'.open()<CR>") -- CTRL-F1
+vim.keymap.set("n", "<M-O>5Q", ":lua require'dapui'.close()<CR>") -- CTRL-F2
+vim.keymap.set("n", "<M-O>5R", ":lua require'dap'.close()<CR>") -- CTRL-F3
+vim.keymap.set("n", "<M-O>5S", ":lua require'dap'.step_out()<CR>") -- CTRL-F4
 vim.keymap.set("n", "<leader>do", ":lua require'dap'.step_out()<CR>")
 vim.keymap.set("n", "<leader>dc", ":lua require'dap'.close()<CR>")
 vim.keymap.set("n", "<leader>du", ":lua require'dapui'.open()<CR>")
+-- END KEYS
 EOF
 " END DEBUG CFG
