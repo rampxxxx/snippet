@@ -632,6 +632,11 @@ vim.keymap.set("n", "<M-O>5P", ":lua require'dapui'.open()<CR>") -- CTRL-F1
 vim.keymap.set("n", "<M-O>5Q", ":lua require'dapui'.close()<CR>") -- CTRL-F2
 vim.keymap.set("n", "<M-O>5R", ":lua require'dap'.close()<CR>") -- CTRL-F3
 vim.keymap.set("n", "<M-O>5S", ":lua require'dap'.step_out()<CR>") -- CTRL-F4
+-- The same but with AltGr as in rhel those Ctrl-F don't match values from opensuse
+vim.keymap.set("n", "<M-O>1P", ":lua require'dapui'.open()<CR>") -- ALTGr-F1
+vim.keymap.set("n", "<M-O>1Q", ":lua require'dapui'.close()<CR>") -- ALTGr-F2
+vim.keymap.set("n", "<M-O>1R", ":lua require'dap'.close()<CR>") -- ALTGr-F3
+vim.keymap.set("n", "<M-O>1S", ":lua require'dap'.step_out()<CR>") -- ALTGr-F4
 vim.keymap.set("n", "<leader>do", ":lua require'dap'.step_out()<CR>")
 vim.keymap.set("n", "<leader>dc", ":lua require'dap'.close()<CR>")
 vim.keymap.set("n", "<leader>du", ":lua require'dapui'.open()<CR>")
