@@ -76,6 +76,10 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Here avoid class with LSP maps, in particular 'gd'
+"
+" Init json
+Plug 'phelipetls/jsonpath.nvim'
+" End json
 
 call plug#end()
 
@@ -543,7 +547,7 @@ lua << EOF
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'bash', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'vimdoc' },
+  ensure_installed = { 'json', 'bash', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'vimdoc' },
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -643,3 +647,20 @@ vim.keymap.set("n", "<leader>du", ":lua require'dapui'.open()<CR>")
 -- END KEYS
 EOF
 " END DEBUG CFG
+
+
+lua << EOF
+-- INIT : jsonpath
+-- in after/ftplugin/json.lua
+
+-- show json path in the winbar
+if vim.fn.exists("+winbar") == 1 then
+  vim.opt_local.winbar = "%{%v:lua.require'jsonpath'.get()%}"
+end
+
+-- send json path to clipboard
+vim.keymap.set("n", "y<C-p>", function()
+  vim.fn.setreg("+", require("jsonpath").get())
+end, { desc = "copy json path", buffer = true })
+-- END : jsonpath
+EOF
