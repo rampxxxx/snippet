@@ -612,12 +612,13 @@ EOF
 lua << EOF
 -- INIT : Telescope setup
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fl', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>tf', builtin.find_files, {})
+vim.keymap.set('n', '<leader>tl', builtin.live_grep, {})
 --vim.keymap.set('n', '<F3>', builtin.grep_string, {}) -- an option?
-vim.keymap.set('n', '<leader>fg', builtin.grep_string, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>tg', builtin.grep_string, {})
+vim.keymap.set('n', '<leader>tb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>td', builtin.diagnostics, {})
 -- END : Telescope setup
 EOF
 
@@ -626,6 +627,28 @@ lua require('dap-go').setup() -- nvim-dap-go register plug and configs.
 lua require("dapui").setup() -- nvim-dap-ui config.
 lua require("nvim-dap-virtual-text").setup() -- Floating/Virtual information of vars inlined.
 lua << EOF
+-- Copied from "https://github.com/mfussenegger/nvim-dap/issues/58"
+local dap = require('dap') -- Add remote debug conf.
+  dap.adapters.go_container_debug = function(callback)
+  local host = vim.fn.input('Remote IP: ')
+  callback({
+    type = 'server';
+    host = host;
+    port = 5000;
+  })
+end
+new_remote_config_go = {
+  {
+    type = "go_container_debug";
+    name = "Remote attach";
+    request = "attach";
+    port = 5000;
+    host = 'localhost';
+  },
+}
+table.insert(dap.configurations.go, new_remote_config_go)
+
+
 -- INIT KEYS
 vim.keymap.set("n", "<F1>", ":lua require'dap'.toggle_breakpoint()<CR>")
 vim.keymap.set("n", "<F2>", ":lua require'dap'.continue()<CR>")
