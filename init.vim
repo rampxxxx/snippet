@@ -244,9 +244,6 @@ require('lint').linters_by_ft = {
 
 -- INIT: follow vars,func in sourced files with shellcheck
 local sh_lint=require('lint').linters.shellcheck
-sh_lint.args={
-'-x'
-}
 -- END: follow multiple files with shellcheck
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
