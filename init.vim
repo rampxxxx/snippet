@@ -616,6 +616,8 @@ vim.keymap.set('n', '<leader>tg', builtin.grep_string, {})
 vim.keymap.set('n', '<leader>tb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>td', builtin.diagnostics, {})
+vim.keymap.set('n', '<leader>tt', builtin.treesitter, {}) -- tresitter names, vars
+vim.keymap.set('n', '<leader>tc', builtin.git_bcommits, {}) -- buffers commits
 -- END : Telescope setup
 EOF
 
