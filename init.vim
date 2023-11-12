@@ -618,6 +618,7 @@ vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>td', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>tt', builtin.treesitter, {}) -- tresitter names, vars
 vim.keymap.set('n', '<leader>tc', builtin.git_bcommits, {}) -- buffers commits
+vim.keymap.set('n', '<leader>ts', builtin.lsp_dynamic_workspace_symbols, {}) -- symbols of the prj.
 -- END : Telescope setup
 EOF
 
