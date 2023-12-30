@@ -18,6 +18,7 @@ augroup DynamicNumber " Number in current split only, save space.
 augroup END
 set ignorecase " This case combination config seems util
 set smartcase  " This case combination config seems util
+set jumpoptions=stack " Jumps like in a web browser.
 " END The Classics
 
 
