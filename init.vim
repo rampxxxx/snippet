@@ -71,8 +71,7 @@ Plug 'rose-pine/neovim'
 " Init : telescope (fd and ripgrep are dependencies commands)
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim' " native sorter for performance
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-" or                                , { 'branch': '0.1.x' }
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 " End : telescope
 
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
