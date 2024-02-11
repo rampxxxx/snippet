@@ -136,6 +136,11 @@ if [ "$SSH_TTY" -o "$DISPLAY" ]
 then
 eval "$(gh completion -s bash)"
 fi
+# kubectl autocompletion
+if type kubectl
+then
+eval "$(kubectl completion bash)"
+fi
 
 
 # START rust
