@@ -255,7 +255,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 -- END nvim-lint
 
-servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls'} --, 'rust-analyzer' }
+servers = { 'pyright', 'bashls', 'clangd', 'gopls','yamlls', 'jsonls'} --, 'rust-analyzer' }
 
 
 -- INIT lsp_signature
@@ -689,4 +689,16 @@ vim.keymap.set("n", "y<C-p>", function()
   vim.fn.setreg("+", require("jsonpath").get())
 end, { desc = "copy json path", buffer = true })
 -- END : jsonpath
+
+-- INIT : vscode-json-language-server
+
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require'lspconfig'.jsonls.setup {
+  capabilities = capabilities,
+}
+
+-- END : vscode-json-language-server
 EOF
