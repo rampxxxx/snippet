@@ -46,6 +46,7 @@ Plug 'dominikduda/vim_current_word' " Highlight current word
 " Init debug TJ suggestion ;-)
 Plug 'mfussenegger/nvim-dap'
 Plug 'leoluz/nvim-dap-go' " Automatically nvim-dap configs, help use nvim-dap & dlv without vscode extensions.
+Plug 'nvim-neotest/nvim-nio' "Required by nvim-dap-ui 11-04-2024
 Plug 'rcarriga/nvim-dap-ui' " Open several windows to show local vars, stack, dap console,...
 Plug 'theHamsta/nvim-dap-virtual-text' " Show floating var values while debugging.
 Plug 'nvim-telescope/telescope-dap.nvim'
