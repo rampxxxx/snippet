@@ -57,6 +57,7 @@ Plug 'nvim-telescope/telescope-dap.nvim'
 " follow latest release and install jsregexp.
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 Plug 'saadparwaiz1/cmp_luasnip' " the snippets itself
+Plug 'rafamadriz/friendly-snippets' " it seems to need all LuaSnip, cmd_luasnip and friendly-snippets
 " End nsnip
 Plug 'mfussenegger/nvim-lint' " Linter for nvim
 "
@@ -428,7 +429,7 @@ nvim_lsp.yamlls.setup {
 -- END . yaml
 
   -- INIT Setup luasnip
- local luasnip = require 'luasnip'
+ local luasnip = require("luasnip.loaders.from_vscode").lazy_load()
   -- END Setup luasnip
 
   -- INIT Setup nvim-cmp.
