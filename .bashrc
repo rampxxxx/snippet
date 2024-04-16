@@ -136,10 +136,20 @@ if [ "$SSH_TTY" -o "$DISPLAY" ]
 then
 eval "$(gh completion -s bash)"
 fi
-# kubectl autocompletion
+
+# k8s better environment.
 if type kubectl
 then
-eval "$(kubectl completion bash)"
+	# kubectl autocompletion
+	eval "$(kubectl completion bash)"
+	# Prompt with context/cluster/namespace
+	function setK8sPrompt() {
+		if [ ! -d .git ] ;then # Avoid clash with git prompt
+			k8sprompt=$(kubectl config get-contexts |grep "^\*"|awk '{print $3"/"$2"/"$5}')
+			export PS1="[\u@\h \w]-\<$k8sprompt\>"
+		fi
+	}
+	PROMPT_COMMAND="$PROMPT_COMMAND;setK8sPrompt"
 fi
 
 
