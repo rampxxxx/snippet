@@ -692,7 +692,6 @@ end, { desc = "copy json path", buffer = true })
 -- END : jsonpath
 
 -- INIT : vscode-json-language-server
-
 --Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -700,6 +699,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require'lspconfig'.jsonls.setup {
   capabilities = capabilities,
 }
-
 -- END : vscode-json-language-server
+
 EOF
