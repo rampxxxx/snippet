@@ -138,7 +138,7 @@ eval "$(gh completion -s bash)"
 fi
 
 # k8s better environment.
-if type kubectl
+if type kubectl  >/dev/null 2>&1
 then
 	# kubectl autocompletion
 	eval "$(kubectl completion bash)"
