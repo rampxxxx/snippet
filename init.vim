@@ -91,7 +91,7 @@ call plug#end()
 autocmd FileType json setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType c,c++ set equalprg=clang-format\ --style='file' " Use .clang-format conf file"
 autocmd FileType rust set equalprg=rustfmt
-" golang formater.
+" golang formater is done by vim-go pluggin
 if executable('shfmt')
 	autocmd FileType sh set equalprg=shfmt " This is the golang
 	autocmd BufWritePre *.sh call FormatOnSaveSh()
@@ -113,6 +113,15 @@ function! FormatOnSaveRust()
 	endif
 	call setpos('.', cursor_position)
 endfunction
+
+
+" INI substitute gofmt with golines which do both: gofmt and golines
+let g:go_fmt_command = "golines"
+let g:go_fmt_options = {
+    \ 'golines': '-m 150 --shorten-comments -t 4 ',
+    \ }
+" END substitute gofmt with golines which do both: gofmt and golines
+
 " END formatting
 
 
