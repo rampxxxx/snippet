@@ -130,9 +130,6 @@ autocmd FileType rust set makeprg=cargo\ build
 " END make command
 
 
-" INIT color
-colorscheme rose-pine
-" END color
 
 " INIT global status line
 set laststatus=3 "Starting nvim 0.7 global status line
@@ -710,4 +707,20 @@ require'lspconfig'.jsonls.setup {
 }
 -- END : vscode-json-language-server
 
+require("rose-pine").setup({
+	--groups = {
+	--link = "love",
+	--},
+	highlight_groups = {
+        -- Comment = { fg = "foam" },
+        -- VertSplit = { fg = "muted", bg = "muted" },
+        NormalFloat = { fg = "rose", bg = "Black" },
+        -- NormalFloat = {  },
+
+    },
+})
 EOF
+
+" INIT color MUST be after the "rose-pine" setup options
+colorscheme rose-pine
+" END color
