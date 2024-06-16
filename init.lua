@@ -732,12 +732,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -755,6 +755,20 @@ require('lazy').setup({
       luasnip.config.setup {}
 
       cmp.setup {
+        formatting = {
+          fields = { 'menu', 'abbr', 'kind' },
+          expandable_indicator = true,
+          format = function(entry, vim_item)
+            local menu_icon = {
+              nvim_lsp = 'λ',
+              luasnip = '⋗',
+              buffer = 'Ω',
+              path = '🖫',
+            }
+            vim_item.menu = menu_icon[entry.source.name]
+            return vim_item
+          end,
+        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -1014,9 +1028,16 @@ vim.keymap.set('n', '<leader>du', ":lua require'dapui'.open()<CR>")
 -- in after/ftplugin/json.lua
 
 -- show json path in the winbar
-if vim.fn.exists '+winbar' == 1 then
+if vim.fn.exists '+winbar' == 1 then -- json #1 This is not working
   vim.opt_local.winbar = "%{%v:lua.require'jsonpath'.get()%}"
 end
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, { -- json #2 So added this autocmd
+  pattern = { '*.json' },
+  callback = function()
+    vim.opt_local.winbar = "%{%v:lua.require'jsonpath'.get()%}"
+  end,
+})
 
 -- send json path to clipboard
 vim.keymap.set('n', 'y<C-p>', function()
@@ -1043,6 +1064,12 @@ vim.opt.laststatus = 3
 -- Set line separator between split less wide with "highlight Win... "
 -- highlight WinSeparator guibg=None " Not needed as colorscheme do that.
 -- END global status line
+--
+--
+
+-- INIT Setup luasnip
+require('luasnip.loaders.from_vscode').lazy_load()
+-- END Setup luasnip
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
