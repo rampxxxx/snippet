@@ -257,7 +257,7 @@ require('lazy').setup({
     'fatih/vim-go',
     build = ':GoUpdateBinaries', -- Don't know if this works
   },
-  'onsails/lspkind-nvim', --Cannot initialize with opts neither configure "formatting" , is deprecated?
+  'onsails/lspkind-nvim',
   { 'ray-x/lsp_signature.nvim', opts = {} },
   'mfussenegger/nvim-dap',
   'leoluz/nvim-dap-go', -- Automatically nvim-dap configs, help use nvim-dap & dlv without vscode extensions.
@@ -753,19 +753,28 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+      local lspkind = require 'lspkind'
 
       cmp.setup {
         formatting = {
           fields = { 'menu', 'abbr', 'kind' },
           expandable_indicator = true,
           format = function(entry, vim_item)
+            --print('Vim item ', vim.inspect(vim_item))
+            --print('entry ', vim.inspect(entry))
             local menu_icon = {
-              nvim_lsp = 'λ',
-              luasnip = '⋗',
-              buffer = 'Ω',
-              path = '🖫',
+              nvim_lsp = 'λ Lsp',
+              luasnip = '⋗ Snip',
+              buffer = 'Ω Buffer',
+              path = '🖫 Fsystem',
             }
+            lspkind.presets.codicons.Variable = 'V' --Can paste graphics ones but ...
+            lspkind.presets.codicons.Struct = 'S'
+            lspkind.presets.codicons.Module = 'M'
             vim_item.menu = menu_icon[entry.source.name]
+            --vim_item.kind = lspkind.presets.default[vim_item.kind] .. '🔭' .. vim_item.kind
+            vim_item.kind = lspkind.presets.codicons[vim_item.kind] .. '🔭' .. vim_item.kind
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 50)
             return vim_item
           end,
         },
@@ -828,10 +837,11 @@ require('lazy').setup({
           -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
-        sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
+        sources = { -- Priority of completion
+          { name = 'nvim_lsp' }, -- First lsp
+          { name = 'buffer' }, -- Second buffer
+          { name = 'luasnip' }, -- Third snip
+          { name = 'path' }, -- Four file system path
         },
       }
     end,
@@ -998,9 +1008,6 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   end,
 })
 -- END  : nvim-lint
--- INIT : lspkind
--- require('lsp_signature').linters_by_ft = {
--- END  : lspkind
 --
 -- INIT DEBUG KEYS
 require('dap-go').setup() -- nvim-dap-go register plug and configs.
