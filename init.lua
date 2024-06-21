@@ -172,7 +172,6 @@ vim.keymap.set("n", "<F5>", "<cmd>GitGutterUndoHunk<CR>")
 vim.keymap.set("n", "<F6>", "<cmd>cprev<CR>")
 vim.keymap.set("n", "<F7>", "<cmd>cnext<CR>")
 vim.keymap.set("n", "<F8>", "<cmd>TagbarToggle<CR>")
-vim.keymap.set("n", "<F9>", "<cmd>TagbarCurrentTag<CR>")
 vim.keymap.set("n", "<F10>", vim.lsp.buf.rename, { desc = "Rename symbol cursor is no" })
 vim.keymap.set("n", "<F12>", "<cmd>GitGutterPreviewHunk<CR>")
 vim.keymap.set("n", "gt", "<cmd>tabnext<CR>")
@@ -591,7 +590,7 @@ require("lazy").setup({
 					--
 					-- This may be unwanted, since they displace some of your code
 					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-						map("<leader>ti", function()
+						map("<F9>", function()
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 						end, "[T]oggle Inlay [H]ints")
 					end
