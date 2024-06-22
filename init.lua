@@ -1074,6 +1074,11 @@ end, { desc = "copy json path", buffer = true })
 --
 --
 
+require("conform").formatters.stylua = {
+    inherit = false,
+    command = "stylua",
+    args = { "--indent-type", "spaces", "$FILENAME" },
+}
 require("conform").formatters.golines = {
 	inherit = false,
 	command = "golines",
