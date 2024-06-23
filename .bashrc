@@ -124,9 +124,9 @@ export PATH=~/bin/protocol:$PATH
 # END protocol utility,create ascii headers
 
 # START fzf bash completion
-if [ "$SSH_TTY" -o "$DISPLAY" ]
-then
-source /usr/share/bash-completion/completions/fzf-key-bindings && source /usr/share/bash-completion/completions/fzf
+if [ "$SSH_TTY" -o "$DISPLAY" ]; then
+	[ -f /etc/profile.d/fzf-bash.sh ] && source /etc/profile.d/fzf-bash.sh # zypper
+        [ -f ~/.fzf.bash ] && source ~/.fzf.bash # github
 fi
 # END fzf bash completion
 
