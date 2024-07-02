@@ -5,6 +5,8 @@ node_version_manager_config() {
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 }
+#export EDITOR=/usr/bin/vim
+#export EDITOR=/usr/bin/mcedit
 
 test -s ~/.alias && . ~/.alias || true
 set -o vi
@@ -125,10 +127,16 @@ if [ "$SSH_TTY" -o "$DISPLAY" ]; then
 	# fzf bash completion
 	[ -f /etc/profile.d/fzf-bash.sh ] && source /etc/profile.d/fzf-bash.sh # zypper
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash                               # github
+	# END fzf bash completion
 	[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" && gvm list
 	# gh generate completion https://cli.github.com/manual/gh_completion
 	eval "$(gh completion -s bash)"
 	node_version_manager_config
+fi
+
+# gh generate completion https://cli.github.com/manual/gh_completion
+if [ "$SSH_TTY" -o "$DISPLAY" ]; then
+	eval "$(gh completion -s bash)"
 fi
 
 # k8s better environment.
@@ -151,4 +159,4 @@ export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH
 
 # END rust
 
-export PATH=$PATH:/opt/nvim-linux64/bin 
+export PATH=$PATH:/opt/nvim-linux64/bin
