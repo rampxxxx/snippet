@@ -1,5 +1,4 @@
-#export EDITOR=/usr/bin/vim
-#export EDITOR=/usr/bin/mcedit
+export EDITOR=nvim
 
 node_version_manager_config() {
 	export NVM_DIR="$HOME/.nvm"
