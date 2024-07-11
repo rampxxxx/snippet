@@ -1,22 +1,16 @@
 #export EDITOR=/usr/bin/vim
 #export EDITOR=/usr/bin/mcedit
 
-
-
 test -s ~/.alias && . ~/.alias || true
 set -o vi
 
-
-if [ "$SSH_TTY" -o "$DISPLAY" ]
-then
-	LOCAL_ID=$(grep -w ID /etc/os-release|awk -F= '{print $2}') # TO adapt to the distro
+if [ "$SSH_TTY" -o "$DISPLAY" ]; then
+	LOCAL_ID=$(grep -w ID /etc/os-release | awk -F= '{print $2}') # TO adapt to the distro
 	echo "La distro es " $LOCAL_ID
-	if [ "$LOCAL_ID" = "\"rhel\"" ];
-	then
+	if [ "$LOCAL_ID" = "\"rhel\"" ]; then
 		echo "Adapting rhel"
 		export PS1='\u:\w>'
-	elif [ "$LOCAL_ID" = "debian" ];
-	then
+	elif [ "$LOCAL_ID" = "debian" ]; then
 		echo "Adapting debian"
 		# in debian nvim appimage need extracto to squash,
 		export PATH=~/bin/squashfs-root/usr/bin:$PATH
@@ -43,16 +37,16 @@ alias st='git status'
 alias j='jobs'
 # END alias
 
-export PATH=~/Dropbox/script:$PATH # cloud scripts
-export PATH=~/.local/bin:$PATH # pip env
-export PATH=~/bin:$PATH # Local utilities
+export PATH=~/Dropbox/script:$PATH                       # cloud scripts
+export PATH=~/.local/bin:$PATH                           # pip env
+export PATH=~/bin:$PATH                                  # Local utilities
 export PATH=~/bin/cov-analysis-linux64-2020.09/bin:$PATH # coverity
 
 # START : History between terminals sync
 # Avoid duplicates
-HISTCONTROL=ignoredups:erasedups  # Add ignorespace to avoid adding cmd's starting with space
-export HISTSIZE=100000                   # big big history
-export HISTFILESIZE=100000               # big big history
+HISTCONTROL=ignoredups:erasedups # Add ignorespace to avoid adding cmd's starting with space
+export HISTSIZE=100000           # big big history
+export HISTFILESIZE=100000       # big big history
 # When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
 
@@ -62,14 +56,11 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; h
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-
-
-if [ "$SSH_TTY" ]
-then
+if [ "$SSH_TTY" ]; then
 	if [ -x /usr/bin/cowsay -a -x /usr/bin/fortune ]; then
 		fortune | cowsay
 	fi
-#else
+	#else
 	# Tooooo slow in x86 but in arm :-O
 	#if [ -x "$(command -v screenfetch)" ]; then
 	#	screenfetch
@@ -80,22 +71,21 @@ fi
 
 ### kernel stuff: build scope db, ...
 export TMPDIR=~/tmp && mkdir -p $TMPDIR || echo "====>>>> Cannot crate $TMPDIR <<<<=====" # To use /home fs instead of root that is bloated.
-ulimit -c unlimited # To allow create core
-
+ulimit -c unlimited                                                                       # To allow create core
 
 # START git prompt
 if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
-    GIT_PROMPT_ONLY_IN_REPO=1
-    GIT_PROMPT_SHOW_UPSTREAM=1
-    GIT_PROMPT_THEME="TruncatedPwd_WindowTitle"
-    source $HOME/.bash-git-prompt/gitprompt.sh
+	GIT_PROMPT_ONLY_IN_REPO=1
+	GIT_PROMPT_SHOW_UPSTREAM=1
+	GIT_PROMPT_THEME="TruncatedPwd_WindowTitle"
+	source $HOME/.bash-git-prompt/gitprompt.sh
 fi
 # END git prompt
 
 # START git completion
 # In rhel seems no have this , so copy from opensuse and source
 if [ -f "$HOME/bin/git.sh" ]; then
-    source $HOME/bin/git.sh
+	source $HOME/bin/git.sh
 fi
 # END git completion
 
@@ -123,44 +113,31 @@ export PATH=~/bin/ltex-ls-15.2.0/bin:$PATH
 export PATH=~/bin/protocol:$PATH
 # END protocol utility,create ascii headers
 
-# START fzf bash completion
 if [ "$SSH_TTY" -o "$DISPLAY" ]; then
+	# fzf bash completion
 	[ -f /etc/profile.d/fzf-bash.sh ] && source /etc/profile.d/fzf-bash.sh # zypper
-        [ -f ~/.fzf.bash ] && source ~/.fzf.bash # github
-fi
-# END fzf bash completion
-
-
-# gh generate completion https://cli.github.com/manual/gh_completion
-if [ "$SSH_TTY" -o "$DISPLAY" ]
-then
-eval "$(gh completion -s bash)"
+	[ -f ~/.fzf.bash ] && source ~/.fzf.bash                               # github
+	[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" && gvm list
+	# gh generate completion https://cli.github.com/manual/gh_completion
+	eval "$(gh completion -s bash)"
 fi
 
 # k8s better environment.
-if type kubectl  >/dev/null 2>&1
-then
+if type kubectl >/dev/null 2>&1; then
 	# kubectl autocompletion
 	eval "$(kubectl completion bash)"
 	# Prompt with context/cluster/namespace
 	function setK8sPrompt() {
-		if [ ! -d .git ] ;then # Avoid clash with git prompt
-			k8sprompt=$(kubectl config get-contexts |grep "^\*"|awk '{print $3"/"$2"/"$5}')
+		if [ ! -d .git ]; then # Avoid clash with git prompt
+			k8sprompt=$(kubectl config get-contexts | grep "^\*" | awk '{print $3"/"$2"/"$5}')
 			export PS1="[\u@\h \w]-\<$k8sprompt\>"
 		fi
 	}
 	PROMPT_COMMAND="$PROMPT_COMMAND;setK8sPrompt"
 fi
 
-
 # START rust
 # ...set PATH to toolchain by hand :-(
 export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH
 
 # END rust
-
-
-
-
-
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" && gvm list
