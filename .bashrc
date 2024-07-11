@@ -1,6 +1,12 @@
 #export EDITOR=/usr/bin/vim
 #export EDITOR=/usr/bin/mcedit
 
+node_version_manager_config() {
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+}
+
 test -s ~/.alias && . ~/.alias || true
 set -o vi
 
@@ -120,6 +126,7 @@ if [ "$SSH_TTY" -o "$DISPLAY" ]; then
 	[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" && gvm list
 	# gh generate completion https://cli.github.com/manual/gh_completion
 	eval "$(gh completion -s bash)"
+	node_version_manager_config
 fi
 
 # k8s better environment.
