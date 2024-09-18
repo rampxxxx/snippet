@@ -19,6 +19,9 @@ if [ "$SSH_TTY" -o "$DISPLAY" ]; then
 		echo "Adapting debian"
 		# in debian nvim appimage need extracto to squash,
 		export PATH=~/bin/squashfs-root/usr/bin:$PATH
+	elif [ "$LOCAL_ID" = "fedora" ]; then
+		echo "Adapting fedora"
+		export PS1='\u:\w>'
 	else
 		echo "Adapting unkown distro " $LOCAL_ID
 	fi
@@ -147,3 +150,5 @@ fi
 export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH
 
 # END rust
+
+export PATH=$PATH:/opt/nvim-linux64/bin 
