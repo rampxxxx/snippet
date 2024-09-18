@@ -154,6 +154,9 @@ vim.opt.cursorline = false -- Only generates confusion
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 0 -- Don't like this
 
+-- Ctrl-O through the tags as a stack
+vim.opt.jumpoptions = "stack"
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
