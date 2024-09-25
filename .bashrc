@@ -164,4 +164,8 @@ export PATH=~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH
 
 # END rust
 
-export PATH=$PATH:/opt/nvim-linux64/bin
+# START nvim , from nvim site package instead rpm,etc?
+export PATH=/opt/nvim-linux64/bin:$PATH
+# END nvim
+
+# source /etc/bash_completion.d/hzn_bash_autocomplete.sh # Horizon agent autocomplete, not using now
