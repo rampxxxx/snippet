@@ -1090,6 +1090,11 @@ end, { desc = "copy json path", buffer = true })
 --
 --
 
+require("conform").formatters.yamlfmt = {
+    inherit = false,
+    command = "yamlfmt",
+    args = { "-formatter", "pad_line_comments=2", "-in" },
+}
 require("conform").formatters.stylua = {
     inherit = false,
     command = "stylua",
