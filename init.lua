@@ -270,6 +270,7 @@ require("lazy").setup({
     "simrat39/rust-tools.nvim", -- Rust support
     "phelipetls/jsonpath.nvim", -- Nice, to show where we are in a json
     "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+    "vim-airline/vim-airline",
 
     -- NOTE: Plugins can also be added by using a table,
     -- with the first argument being the link and the following
