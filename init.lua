@@ -731,6 +731,7 @@ require("lazy").setup({
                 lua = { "stylua" },
                 go = { "golines" },
                 c = { "clang-format" },
+                yaml = { "yamlfmt" },
                 -- Conform can also run multiple formatters sequentially
                 -- python = { "isort", "black" },
                 --
