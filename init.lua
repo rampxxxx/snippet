@@ -1034,6 +1034,7 @@ require("lint").linters_by_ft = {
     go = { "golangcilint" },
     sh = { "shellcheck" },
     c = { "clangtidy" },
+    yaml = { "yamllint" },
 }
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     callback = function()
