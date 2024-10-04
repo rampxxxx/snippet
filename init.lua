@@ -403,16 +403,16 @@ require("lazy").setup({
                 --   },
                 -- },
                 pickers = {
-          live_grep = {
-            additional_args = function()
-              return {"--no-ignore"} -- Need pass as additional_args so function for that
-            end
-          },
-          find_files = { -- Pass parameters supported by the builtin pickers
-            hidden = true,    -- Search in hidden files also
-            no_ignore = true, -- Search in .gitignore files also
-          },
-        },
+                    live_grep = {
+                        additional_args = function()
+                            return { "--no-ignore" } -- Need pass as additional_args so function for that
+                        end,
+                    },
+                    find_files = { -- Pass parameters supported by the builtin pickers
+                        hidden = true, -- Search in hidden files also
+                        no_ignore = true, -- Search in .gitignore files also
+                    },
+                },
                 extensions = {
                     ["ui-select"] = {
                         require("telescope.themes").get_dropdown(),
