@@ -1098,7 +1098,7 @@ require("conform").formatters.yamlfmt = {
 require("conform").formatters.stylua = {
     inherit = false,
     command = "stylua",
-    args = { "--indent-type", "spaces", "$FILENAME" },
+    args = { "--indent-type", "Spaces", "$FILENAME" },
 }
 require("conform").formatters.golines = {
     inherit = false,
