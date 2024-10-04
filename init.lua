@@ -644,7 +644,22 @@ require("lazy").setup({
                 pyright = {},
                 rust_analyzer = {},
                 clangd = {},
-                yamlls = {},
+                yamlls = {
+                    settings = {
+                        yaml = {
+                            validate = true,
+                            -- schemaStore = { -- Placeholder for schemaStore url
+                            --     enable = false,
+                            --     url = "",
+                            -- },
+                            -- Manual schemas
+                            schemas = {
+                                --- ["https://raw.githubusercontent.com/tektoncd/hub/master/api/gen/http/openapi3.yaml"] = "*.{yaml,yml}",
+                                kubernetes = { "k8s**.yaml", "kube*/*.yaml" },
+                            },
+                        },
+                    },
+                },
                 jsonls = {},
                 -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
                 --
