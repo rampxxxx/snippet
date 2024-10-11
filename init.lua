@@ -272,6 +272,19 @@ require("lazy").setup({
     "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
     "vim-airline/vim-airline",
 
+    -- INI nvim-tree.lua
+    {
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function()
+            require("nvim-tree").setup({})
+        end,
+    },
+    -- END nvim-tree.lua
     -- NOTE: Plugins can also be added by using a table,
     -- with the first argument being the link and the following
     -- keys can be used to configure plugin behavior/loading/etc.
