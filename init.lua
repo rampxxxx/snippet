@@ -290,6 +290,17 @@ require("lazy").setup({
         end,
     },
     -- END nvim-tree.lua
+    -- INI goplements.nvim
+    {
+        "maxandron/goplements.nvim",
+        ft = "go",
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+    },
+    -- END goplements.nvim
     -- NOTE: Plugins can also be added by using a table,
     -- with the first argument being the link and the following
     -- keys can be used to configure plugin behavior/loading/etc.
@@ -1157,5 +1168,9 @@ vim.opt.laststatus = 3
 require("luasnip.loaders.from_vscode").lazy_load()
 -- END Setup luasnip
 
+-- INIT Setup goplements
+require("goplements").enable()
+-- END Setup goplements
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
