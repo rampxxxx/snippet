@@ -1,3 +1,6 @@
+# shellcheck disable=SC1090,SC1091,SC2148
+
+
 export EDITOR=nvim
 
 node_version_manager_config() {
@@ -8,12 +11,11 @@ node_version_manager_config() {
 #export EDITOR=/usr/bin/vim
 #export EDITOR=/usr/bin/mcedit
 
-test -s ~/.alias && . ~/.alias || true
 set -o vi
 
-if [ "$SSH_TTY" -o "$DISPLAY" ]; then
+if [ "$SSH_TTY" ] || [ "$DISPLAY" ]; then
 	LOCAL_ID=$(grep -w ID /etc/os-release | awk -F= '{print $2}') # TO adapt to the distro
-	echo "La distro es " $LOCAL_ID
+	echo "La distro es  $LOCAL_ID"
 	if [ "$LOCAL_ID" = "\"rhel\"" ]; then
 		echo "Adapting rhel"
 		export PS1='\u:\w>'
@@ -25,7 +27,7 @@ if [ "$SSH_TTY" -o "$DISPLAY" ]; then
 		echo "Adapting fedora"
 		export PS1='\u:\w>'
 	else
-		echo "Adapting unkown distro " $LOCAL_ID
+		echo "Adapting unkown distro  $LOCAL_ID"
 	fi
 fi
 
@@ -67,7 +69,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 if [ "$SSH_TTY" ]; then
-	if [ -x /usr/bin/cowsay -a -x /usr/bin/fortune ]; then
+	if [ -x /usr/bin/cowsay ] && [ -x /usr/bin/fortune ]; then
 		fortune | cowsay
 	fi
 	#else
@@ -85,17 +87,20 @@ ulimit -c unlimited                                                             
 
 # START git prompt
 if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
+	# shellcheck disable=SC2034
 	GIT_PROMPT_ONLY_IN_REPO=1
+	# shellcheck disable=SC2034
 	GIT_PROMPT_SHOW_UPSTREAM=1
+	# shellcheck disable=SC2034
 	GIT_PROMPT_THEME="TruncatedPwd_WindowTitle"
-	source $HOME/.bash-git-prompt/gitprompt.sh
+	source "$HOME/.bash-git-prompt/gitprompt.sh"
 fi
 # END git prompt
 
 # START git completion
 # In rhel seems no have this , so copy from opensuse and source
 if [ -f "$HOME/bin/git.sh" ]; then
-	source $HOME/bin/git.sh
+	source "$HOME/bin/git.sh"
 fi
 # END git completion
 
@@ -123,7 +128,7 @@ export PATH=~/bin/ltex-ls-15.2.0/bin:$PATH
 export PATH=~/bin/protocol:$PATH
 # END protocol utility,create ascii headers
 
-if [ "$SSH_TTY" -o "$DISPLAY" ]; then
+if [ "$SSH_TTY" ] || [ "$DISPLAY" ]; then
 	# fzf bash completion
 	[ -f /etc/profile.d/fzf-bash.sh ] && source /etc/profile.d/fzf-bash.sh # zypper
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash                               # github
@@ -135,7 +140,7 @@ if [ "$SSH_TTY" -o "$DISPLAY" ]; then
 fi
 
 # gh generate completion https://cli.github.com/manual/gh_completion
-if [ "$SSH_TTY" -o "$DISPLAY" ]; then
+if [ "$SSH_TTY" ] || [ "$DISPLAY" ]; then
 	eval "$(gh completion -s bash)"
 fi
 

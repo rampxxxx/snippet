@@ -7,11 +7,11 @@
 
 #SRC_ROOT=/repo/zjamvra/toBuildEpg
 SRC_ROOT=.
-CSCOPE_FILE_PATTERN=cscope*
+CSCOPE_FILE_PATTERN="cscope*"
 
 true >cscope.files
-echo "Deleting old cscope files:" $(ls $CSCOPE_FILE_PATTERN)
-rm $CSCOPE_FILE_PATTERN
+echo "Deleting old cscope files: $(ls "$CSCOPE_FILE_PATTERN")"
+rm "$CSCOPE_FILE_PATTERN"
 
 # cd ~ # Avoid home
 #find $SRC_ROOT/cdpi-main \( -name '*.cc' -o -name '*.h' \) -exec realpath {} \; > cscope.files
@@ -37,7 +37,7 @@ echo "Result of cscope command:"$?
 #cd - # Avoid home
 
 echo "Creating universal-ctags tag file ..."
-universal-ctags $(cat cscope.files)
+universal-ctags "$(cat cscope.files)"
 # ctags
 #ctags -R --c++-kinds=+p --fields=+iaS --extra=+q
 #echo "press key to continue..."

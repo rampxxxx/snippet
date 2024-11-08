@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1090,SC1091,SC2148
 
 # To run gns3 with a pythin version 
 # Install virtual environment : pyenv, virtualenv
