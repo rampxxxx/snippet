@@ -157,6 +157,9 @@ vim.opt.scrolloff = 0 -- Don't like this
 -- Ctrl-O through the tags as a stack
 vim.opt.jumpoptions = "stack"
 
+-- Color colum
+vim.opt.colorcolumn = "80"
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
