@@ -293,6 +293,18 @@ require("lazy").setup({
         end,
     },
     -- END nvim-tree.lua
+    -- INI indent-blankline.lua
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
+        opts = {},
+        config = function()
+            require("ibl").setup({})
+        end,
+    },
+    -- END indent-blankline.lua
     -- INI goplements.nvim
     {
         "maxandron/goplements.nvim",
