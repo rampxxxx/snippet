@@ -160,6 +160,10 @@ vim.opt.jumpoptions = "stack"
 -- Color colum
 vim.opt.colorcolumn = "80"
 
+-- Active de english dictionary ([s,]s and 'Z=')
+vim.opt.spelllang = en_us
+vim.opt.spell = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
