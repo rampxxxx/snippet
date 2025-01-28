@@ -169,3 +169,31 @@ export PATH=/opt/nvim-linux64/bin:$PATH
 # END nvim
 
 # source /etc/bash_completion.d/hzn_bash_autocomplete.sh # Horizon agent autocomplete, not using now
+#
+#
+
+
+# INI JWT utils https://gist.github.com/thomasdarimont/46358bc8167fce059d83a1ebdb92b0e7
+decode_base64_url() {
+  local len=$((${#1} % 4))
+  local result="$1"
+  if [ $len -eq 2 ]; then result="$1"'=='
+  elif [ $len -eq 3 ]; then result="$1"'=' 
+  fi
+  echo "$result" | tr '_-' '/+' | openssl enc -d -base64
+}
+
+decode_jwt(){
+   decode_base64_url $(echo -n $2 | cut -d "." -f $1) | jq .
+}
+
+# Decode JWT header
+alias jwth="decode_jwt 1"
+
+# Decode JWT Payload
+alias jwtp="decode_jwt 2"
+
+# Example jwtp eyJhbGciOiJSUzI1NiIsInR5.....   # Payload
+# Example jwtp eyJhbGciOiJSUzI1NiIsInR5.....   # Header
+
+# END JWT utils
