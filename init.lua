@@ -285,6 +285,16 @@ require("lazy").setup({
     "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
     "vim-airline/vim-airline",
 
+    -- INI curl.nvim -- Basic curl cmds inside nvim , "set filetype=curl" + <cr>
+  {
+    "oysandvik94/curl.nvim",
+    cmd = { "CurlOpen" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = true,
+  },
+    -- END curl.nvim
     -- INI gen.vim
     -- Minimal configuration
     -- https://github.com/David-Kunz/gen.nvim?tab=readme-ov-file
