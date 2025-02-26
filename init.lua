@@ -286,22 +286,25 @@ require("lazy").setup({
     "vim-airline/vim-airline",
 
     -- INI curl.nvim -- Basic curl cmds inside nvim , "set filetype=curl" + <cr>
-  {
-    "oysandvik94/curl.nvim",
-    cmd = { "CurlOpen" },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
+    {
+        "oysandvik94/curl.nvim",
+        cmd = { "CurlOpen" },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        config = true,
     },
-    config = true,
-  },
     -- END curl.nvim
     -- INI gen.vim
     -- Minimal configuration
     -- https://github.com/David-Kunz/gen.nvim?tab=readme-ov-file
-    { "David-Kunz/gen.nvim",
-      opts = {
-        model = "deepseek-coder-v2:16b",
-      },
+    {
+        "David-Kunz/gen.nvim",
+        opts = {
+            model = "deepseek-coder-v2:16b",
+            host = "localhost", -- The host running the Ollama service.
+            port = "11434", -- The port on which the Ollama service is listening.
+        },
     },
     -- END gen.vim
     -- INI nvim-tree.lua
@@ -747,7 +750,7 @@ require("lazy").setup({
                             },
                             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
                             -- diagnostics = { disable = { 'missing-fields' } },
-            },
+                        },
                     },
                 },
             }
