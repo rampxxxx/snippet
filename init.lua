@@ -748,6 +748,11 @@ require("lazy").setup({
                             completion = {
                                 callSnippet = "Replace",
                             },
+                            workspace = {
+                                library = {
+                                    "~/tmp/lua-language-server/meta/3rd/OpenResty/",
+                                },
+                            },
                             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
                             -- diagnostics = { disable = { 'missing-fields' } },
                         },
