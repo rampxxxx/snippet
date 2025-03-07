@@ -151,7 +151,7 @@ if type kubectl >/dev/null 2>&1; then
 	# Prompt with context/cluster/namespace
 	function setK8sPrompt() {
 		if [ ! -d .git ]; then # Avoid clash with git prompt
-			k8sprompt=$(kubectl config get-contexts | grep "^\*" | awk '{print $3"/"$2"/"$5}')
+			k8sprompt=$(kubectl config get-contexts | grep "^\*" | awk '{print substr($5,1,10)"/"substr($3,1,10)}')
 			export PS1="[\u@\h \w]-\<$k8sprompt\>"
 		fi
 	}
