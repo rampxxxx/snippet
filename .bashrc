@@ -47,6 +47,7 @@ alias gls='git log -5 --pretty=format:"%h %s"'
 alias gd='git diff'
 alias st='git status'
 alias j='jobs'
+alias tf='tofu'
 # END alias
 
 export PATH=~/Dropbox/script:$PATH                       # cloud scripts
