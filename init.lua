@@ -1108,6 +1108,22 @@ require("lazy").setup({
     },
 })
 
+-- INI USC52
+local g = vim.g
+
+g.clipboard = {
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
+}
+-- END USC52
+
 -- INIT : rose-pine config and load in that order
 require("rose-pine").setup({
     --groups = {
